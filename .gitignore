@@ -1,5 +1,5 @@
 mods/
-*buildOut/*
+buildOut/
 *client.zip
 .mixin.out/
 armourers_workshop/
@@ -8,6 +8,7 @@ fonts/
 journeymap/
 logs/
 saves/
+build/buildOut/
 
 .curseclient
 usercache.json
@@ -30,6 +31,7 @@ config/BiomeTweaker/output/*
 config/AppliedEnergistics2/CustomRecipes.cfg
 config/AppliedEnergistics2/items.csv
 config/AppliedEnergistics2/VersionChecker.cfg
+config/gregtech/terminal/*
 
 hei_bookmarks.ini
 
@@ -86,3 +88,7 @@ local/
 disabledmods/
 
 jarmods/
+
+visualores/
+
+*__pycache__*

@@ -1,28 +1,23 @@
-import static globals.Globals.*
+import globals.RecyclingHelper
+import gregtechfoodoption.utils.GTFOUtils
 
-import gregtech.api.recipes.ModHandler;
-import gregtech.api.unification.material.Materials;
-import gregtech.api.unification.ore.OrePrefix;
-import gregtech.api.unification.stack.UnificationEntry;
-
-import gregtechfoodoption.utils.GTFOUtils;
-import static gregtechfoodoption.utils.GTFOUtils.*;
+import static gregtechfoodoption.utils.GTFOUtils.*
 
 // MACHINE RECIPES
 
-crafting.replaceShaped("gregtechfoodoption:gregtechfoodoption.machine.slicer.lv", metaitem('gregtechfoodoption:slicer.lv'), [
+RecyclingHelper.replaceShaped("gregtechfoodoption:gregtechfoodoption.machine.slicer.lv", metaitem('gregtechfoodoption:slicer.lv'), [
 		[metaitem('electric.piston.lv'), ore('circuitLv'), ore('cableGtSingleTin')],
 		[ore('toolHeadBuzzSawSteel'), metaitem('gregtech:hull.lv'), ore('circuitLv')],
 		[ore('plateSteel'), metaitem('conveyor.module.lv'), ore('cableGtSingleTin')]
 ])
 
-crafting.replaceShaped("gregtechfoodoption:gregtechfoodoption.machine.slicer.mv", metaitem('gregtechfoodoption:slicer.mv'), [
+RecyclingHelper.replaceShaped("gregtechfoodoption:gregtechfoodoption.machine.slicer.mv", metaitem('gregtechfoodoption:slicer.mv'), [
 		[metaitem('electric.piston.mv'), ore('circuitMv'), ore('cableGtSingleCopper')],
 		[ore('toolHeadBuzzSawAluminium'), metaitem('gregtech:hull.mv'), ore('circuitMv')],
 		[ore('plateAluminium'), metaitem('conveyor.module.mv'), ore('cableGtSingleCopper')]
 ])
 
-crafting.replaceShaped("gregtechfoodoption:gregtechfoodoption.machine.slicer.hv", metaitem('gregtechfoodoption:slicer.hv'), [
+RecyclingHelper.replaceShaped("gregtechfoodoption:gregtechfoodoption.machine.slicer.hv", metaitem('gregtechfoodoption:slicer.hv'), [
 		[metaitem('electric.piston.hv'), ore('circuitHv'), ore('cableGtSingleGold')],
 		[ore('toolHeadBuzzSawVanadiumSteel'), metaitem('gregtech:hull.hv'), ore('circuitHv')],
 		[ore('plateVanadiumSteel'), metaitem('conveyor.module.hv'), ore('cableGtSingleGold')]
@@ -46,7 +41,6 @@ mods.gregtech.assembler.recipeBuilder()
 
 def DISTILLERY = recipemap('distillery');
 def MIXER = recipemap('mixer');
-
 def LCR = recipemap('large_chemical_reactor')
 def BR = recipemap('batch_reactor')
 def CSTR = recipemap('continuous_stirred_tank_reactor');
@@ -57,6 +51,8 @@ def ROASTER = recipemap('roaster')
 def CHEMICAL_BATH = recipemap('chemical_bath')
 def BCR = recipemap('bubble_column_reactor')
 def FLUIDIZEDBR = recipemap('fluidized_bed_reactor')
+def FBR = recipemap('fixed_bed_reactor')
+def PYROLYSE_OVEN = recipemap('pyrolyse_oven');
 
 FERMENTER.recipeBuilder()
         .fluidInputs(fluid('gtfo_red_grapes_must') * 8000)
@@ -77,14 +73,14 @@ MIXER.recipeBuilder()
         .fluidInputs(fluid('water') * 1000)
         .fluidOutputs(fluid('gtfo_potato_juice') * 1000)
         .duration(1000)
-        .EUt(8)
+        .EUt(7)
         .buildAndRegister()
 
 FERMENTER.recipeBuilder()
         .fluidInputs(fluid('gtfo_potato_juice') * 2000)
         .fluidOutputs(fluid('gtfo_vodka') * 2000)
         .duration(3000)
-        .EUt(8)
+        .EUt(7)
         .buildAndRegister()
 
 FERMENTER.recipeBuilder()
@@ -98,7 +94,7 @@ FERMENTER.recipeBuilder()
         .buildAndRegister()
 
 MIXER.recipeBuilder()
-        .inputs(metaitem('food.white_grapes'))
+        .inputs(metaitem('gregtechfoodoption:food.white_grapes'))
         .fluidInputs(fluid('water') * 4000)
         .fluidOutputs(fluid('gtfo_macerated_white_grapes') * 4000)
         .duration(500)
@@ -111,25 +107,6 @@ FERMENTER.recipeBuilder()
         .circuitMeta(4)
         .duration(8000)
         .EUt(2)
-        .buildAndRegister()
-
-ELECTROLYZER.recipeBuilder()
-        .notConsumable(metaitem('stickNickel'))
-        .notConsumable(metaitem('graphite_electrode'))
-        .inputs(ore('dustSalt') * 2)
-        .fluidInputs(fluid('water') * 5000)
-        .fluidOutputs(fluid('sodium_chlorate_solution') * 2000)
-        .fluidOutputs(fluid('hydrogen') * 6000)
-        .duration(200)
-        .EUt(30)
-        .buildAndRegister()
-
-DISTILLERY.recipeBuilder()
-        .fluidInputs(fluid('sodium_chlorate_solution') * 2000)
-        .fluidOutputs(fluid('water') * 2000)
-        .outputs(metaitem('sodium_chlorate_dust') * 5)
-        .duration(100)
-        .EUt(30)
         .buildAndRegister()
 
 ELECTROLYZER.recipeBuilder()
@@ -154,22 +131,22 @@ CSTR.recipeBuilder()
 BR.recipeBuilder()
         .fluidInputs(fluid('gtfo_perchloric_acid') * 1000)
         .fluidInputs(fluid('ammonia') * 1000)
-        .outputs(metaitem('ammonium_perchlorate_dust') * 10)
+        .outputs(metaitem('gregtechfoodoption:ammonium_perchlorate_dust') * 10)
         .duration(100)
         .EUt(30)
         .buildAndRegister()
 
 CENTRIFUGE.recipeBuilder()
         .fluidInputs(fluid('gtfo_alkaline_extract') * 1000)
-        .inputs(metaitem('ammonium_perchlorate_dust') * 10)
+        .inputs(metaitem('gregtechfoodoption:ammonium_perchlorate_dust') * 10)
         .fluidOutputs(fluid('gtfo_sludge') * 1000)
-        .outputs(metaitem('potassium_perchlorate_dust') * 6)
+        .outputs(metaitem('gregtechfoodoption:potassium_perchlorate_dust') * 6)
         .duration(100)
         .EUt(30)
         .buildAndRegister()
 
 ROASTER.recipeBuilder()
-        .inputs(metaitem('potassium_perchlorate_dust') * 6)
+        .inputs(metaitem('gregtechfoodoption:potassium_perchlorate_dust') * 6)
         .fluidOutputs(fluid('oxygen') * 4000)
         .outputs(metaitem('dustRockSalt') * 2)
         .duration(100)
@@ -177,9 +154,9 @@ ROASTER.recipeBuilder()
         .buildAndRegister()
 
 MIXER.recipeBuilder()
-        .inputs(metaitem('seed.pea'))
+        .inputs(metaitem('gregtechfoodoption:seed.pea'))
         .fluidInputs(fluid('gtfo_baking_soda_solution') * 500)
-        .outputs(metaitem('food.mushy_peas'))
+        .outputs(metaitem('gregtechfoodoption:food.mushy_peas'))
         .duration(100)
         .EUt(30)
         .buildAndRegister()
@@ -188,7 +165,7 @@ for (ItemStack fish : GTFOUtils.getFish()) {
     CHEMICAL_BATH.recipeBuilder()
             .fluidInputs(fluid('gtfo_beer_batter') * 40)
             .inputs(fish)
-            .outputs(metaitem('food.fried_fish'))
+            .outputs(metaitem('gregtechfoodoption:food.fried_fish'))
             .EUt(16)
             .duration(400)
             .buildAndRegister();
@@ -196,34 +173,34 @@ for (ItemStack fish : GTFOUtils.getFish()) {
     FERMENTER.recipeBuilder()
             .fluidInputs(fluid('water') * 100)
             .inputs(fish)
-            .outputs(metaitem('food.fish_rotten'))
-            .EUt(8)
+            .outputs(metaitem('gregtechfoodoption:food.fish_rotten'))
+            .EUt(7)
             .duration(100)
             .buildAndRegister();
 }
 
 MIXER.recipeBuilder()
-        .inputs(metaitem('component.beef_slice') * 4)
+        .inputs(metaitem('gregtechfoodoption:component.beef_slice') * 4)
         .fluidInputs(fluid('salt_water') * 1000)
         .fluidInputs(fluid('acetic_acid') * 100)
         .fluidOutputs(fluid('gtfo_crude_rennet_solution') * 500)
         .duration(300)
-        .EUt(8)
+        .EUt(7)
         .buildAndRegister()
 
 CENTRIFUGE.recipeBuilder()
         .fluidInputs(fluid('gtfo_crude_rennet_solution') * 1)
         .fluidInputs(fluid('milk') * 3000)
-        .outputs(metaitem('coagulated_milk_curd_nugget'))
+        .outputs(metaitem('gregtechfoodoption:coagulated_milk_curd_nugget'))
         .fluidOutputs(fluid('gtfo_whey') * 600)
         .duration(200)
         .EUt(30)
         .buildAndRegister()
 
 FERMENTER.recipeBuilder()
-        .inputs(metaitem('component.brined_parmigiano_roll') * 64)
+        .inputs(metaitem('gregtechfoodoption:component.brined_parmigiano_roll') * 64)
         .fluidInputs(fluid('air') * 10000)
-        .outputs(metaitem('component.aged_parmigiano_roll') * 64)
+        .outputs(metaitem('gregtechfoodoption:component.aged_parmigiano_roll') * 64)
         .duration(36000)
         .EUt(2)
         .buildAndRegister()
@@ -245,8 +222,8 @@ BCR.recipeBuilder()
         .buildAndRegister()
 
 BR.recipeBuilder()
-        .inputs(metaitem('coffee_grounds_dust'))
-        .inputs(metaitem('component.paper_cone'))
+        .inputs(metaitem('gregtechfoodoption:coffee_grounds_dust'))
+        .inputs(metaitem('gregtechfoodoption:component.paper_cone'))
         .fluidInputs(fluid('steam') * 1000)
         .outputs(metaitem('dustPaper'))
         .fluidOutputs(fluid('gtfo_coffee') * 15)
@@ -276,8 +253,8 @@ for (ItemStack meat : GTFOUtils.getMeat()) {
     FERMENTER.recipeBuilder()
             .fluidInputs(fluid('water') * 100)
             .inputs(meat)
-            .outputs(metaitem('food.meat_rotten'))
-            .EUt(8)
+            .outputs(metaitem('gregtechfoodoption:food.meat_rotten'))
+            .EUt(7)
             .duration(100)
             .buildAndRegister();
 
@@ -297,7 +274,7 @@ for (ItemStack meat : GTFOUtils.getMeat()) {
 LCR.recipeBuilder()
         .fluidInputs(fluid('methanol') * 4000)
         .fluidInputs(fluid('chloroform') * 4000)
-        .inputs(metaitem('component.scrap_meat') * 32)
+        .inputs(metaitem('gregtechfoodoption:component.scrap_meat') * 32)
         .outputs(metaitem('dustMeat') * 32)
         .outputs(item('minecraft:dye', 15) * 20)
         .fluidOutputs(fluid('gtfo_stearin') * 3500)
@@ -307,7 +284,7 @@ LCR.recipeBuilder()
         .buildAndRegister();
 
 CHEMICAL_BATH.recipeBuilder()
-        .inputs(metaitem('component.scrap_meat'))
+        .inputs(metaitem('gregtechfoodoption:component.scrap_meat'))
         .fluidInputs(fluid('chloroform') * 100)
         .outputs(metaitem('dustMeat'))
         .fluidOutputs(fluid('gtfo_sludge') * 40)
@@ -328,15 +305,6 @@ MIXER.recipeBuilder()
         .circuitMeta(1)
         .inputs(ore('dustSodaAsh'))
         .fluidInputs(fluid('seed_oil') * 8000)
-        .fluidOutputs(fluid('gtfo_stearin') * 4000)
-        .duration(1200)
-        .EUt(30)
-        .buildAndRegister()
-
-MIXER.recipeBuilder()
-        .circuitMeta(1)
-        .inputs(ore('dustSodaAsh'))
-        .fluidInputs(fluid('fish_oil') * 8000)
         .fluidOutputs(fluid('gtfo_stearin') * 4000)
         .duration(1200)
         .EUt(30)
@@ -380,23 +348,24 @@ FLUIDIZEDBR.recipeBuilder()
         .fluidInputs(fluid('gtfo_x_phenothiazine_ii_propyl_chloride') * 1000)
         .notConsumable(metaitem('dustCopper'))
         .fluidOutputs(fluid('hydrogen_chloride') * 1000)
-        .outputs(metaitem('promethazine_dust'))
+        .outputs(metaitem('gregtechfoodoption:promethazine_dust'))
         .duration(120)
         .EUt(2000)
         .buildAndRegister()
 
 BR.recipeBuilder()
         .fluidInputs(fluid('gtfo_isopropyl_chloride') * 1000)
-        .inputs(metaitem('phenothiazine_dust') * 23)
+        .inputs(metaitem('gregtechfoodoption:phenothiazine_dust') * 23)
         .fluidOutputs(fluid('gtfo_x_phenothiazine_ii_propyl_chloride') * 1000)
         .duration(120)
         .EUt(240)
         .buildAndRegister()
 
 BR.recipeBuilder()
+        .circuitMeta(2)
         .fluidInputs(fluid('gtfo_aniline') * 2000)
         .fluidInputs(fluid('hydrogen_chloride') * 1000)
-        .outputs(metaitem('diphenylamine_dust') * 24)
+        .outputs(metaitem('gregtechfoodoption:diphenylamine_dust') * 24)
         .outputs(metaitem('dustAmmoniumChloride') * 6)
         .duration(120)
         .EUt(480)
@@ -428,6 +397,16 @@ BR.recipeBuilder()
         .EUt(60)
         .buildAndRegister()
 
+FBR.recipeBuilder()
+        .notConsumable(ore('catalystBedSilver'))
+        .fluidInputs(fluid('ethylene_glycol') * 50)
+        .fluidInputs(fluid('oxygen') * 100)
+        .fluidOutputs(fluid('gtfo_glyoxal') * 50)
+        .fluidOutputs(fluid('water') * 100)
+        .duration(6)
+        .EUt(60)
+        .buildAndRegister()
+
 LCR.recipeBuilder()
         .fluidInputs(fluid('gtfo_glyoxal') * 2000)
         .fluidInputs(fluid('nitric_acid') * 2000)
@@ -443,7 +422,7 @@ BR.recipeBuilder()
         .notConsumable(metaitem('dustSodiumHydroxide'))
         .fluidInputs(fluid('gtfo_guaiacol') * 1000)
         .fluidInputs(fluid('gtfo_glyoxylic_acid') * 1000)
-        .outputs(metaitem('vanillylmandelic_acid_dust') * 24)
+        .outputs(metaitem('gregtechfoodoption:vanillylmandelic_acid_dust') * 24)
         .duration(160)
         .EUt(120)
         .buildAndRegister()
@@ -451,27 +430,27 @@ BR.recipeBuilder()
 BR.recipeBuilder()
         .notConsumable(metaitem('dustSodiumHydroxide'))
         .fluidInputs(fluid('oxygen') * 1000)
-        .inputs(metaitem('vanillylmandelic_acid_dust') * 24)
+        .inputs(metaitem('gregtechfoodoption:vanillylmandelic_acid_dust') * 24)
         .fluidOutputs(fluid('water') * 1000)
-        .outputs(metaitem('vanilglycolic_acid_dust') * 22)
+        .outputs(metaitem('gregtechfoodoption:vanilglycolic_acid_dust') * 22)
         .duration(160)
         .EUt(120)
         .buildAndRegister()
 
 LCR.recipeBuilder()
         .fluidInputs(fluid('hydrochloric_acid') * 1000)
-        .inputs(metaitem('vanilglycolic_acid_dust') * 22)
+        .inputs(metaitem('gregtechfoodoption:vanilglycolic_acid_dust') * 22)
         .fluidOutputs(fluid('diluted_hydrochloric_acid') * 1000)
         .fluidOutputs(fluid('carbon_dioxide') * 1000)
-        .outputs(metaitem('vanillin_dust') * 19)
+        .outputs(metaitem('gregtechfoodoption:vanillin_dust') * 19)
         .duration(240)
         .EUt(120)
         .buildAndRegister()
 
 // Replace mozzarella recipes to make it obtainable
 ROASTER.recipeBuilder()
-        .inputs(metaitem('dried_mozzarella_curd_nugget'))
-        .outputs(metaitem('solidified_mozzarella_curd_nugget'))
+        .inputs(metaitem('gregtechfoodoption:dried_mozzarella_curd_nugget'))
+        .outputs(metaitem('gregtechfoodoption:solidified_mozzarella_curd_nugget'))
         .fluidOutputs(fluid('gtfo_whey') * 50)
         .duration(200)
         .EUt(16)
@@ -481,11 +460,81 @@ MIXER.recipeBuilder()
         .fluidInputs(fluid('milk') * 6000)
         .fluidInputs(fluid('gtfo_crude_rennet_solution'))
         .fluidInputs(fluid('gtfo_whey') * 400)
-        .outputs(metaitem('large_mozzarella_curd_nugget'))
+        .outputs(metaitem('gregtechfoodoption:large_mozzarella_curd_nugget'))
         .duration(160)
-        .EUt(8)
+        .EUt(7)
+        .buildAndRegister()
+
+ROASTER.recipeBuilder()
+        .circuitMeta(1)
+        .inputs(item('minecraft:dye', 3) * 8)
+        .outputs(metaitem('gregtechfoodoption:component.roasted_beans') * 8)
+        .fluidOutputs(fluid('steam') * 1000)
+        .EUt(120)
+        .duration(30)
         .buildAndRegister()
 		
+// Gelatin
+CHEMICAL_BATH.recipeBuilder()
+        .inputs(ore('dustBone') * 1)
+        .fluidInputs(fluid('hydrochloric_acid') * 2000)
+        .outputs(metaitem('dustCollagen') * 1)
+        .fluidOutputs(fluid('wastewater') * 2000)
+        .duration(160)
+        .EUt(7)
+        .buildAndRegister()
+
+CHEMICAL_BATH.recipeBuilder()
+        .inputs(item('minecraft:leather'))
+        .fluidInputs(fluid('hydrochloric_acid') * 2000)
+        .outputs(metaitem('dustCollagen') * 1)
+        .fluidOutputs(fluid('wastewater') * 2000)
+        .duration(160)
+        .EUt(7)
+        .buildAndRegister()
+
+CHEMICAL_BATH.recipeBuilder()
+        .inputs(ore('dustCollagen'))
+        .fluidInputs(fluid('sodium_hydroxide_solution') * 250)
+        .outputs(metaitem('dustTreatedCollagen'))
+        .fluidOutputs(fluid('wastewater') * 250)
+        .duration(160)
+        .EUt(7)
+        .buildAndRegister()
+
+CENTRIFUGE.recipeBuilder()
+        .inputs(ore('dustTreatedCollagen'))
+        .fluidInputs(fluid('gtfo_heated_water') * 1000)
+        .fluidOutputs(fluid('gelatin_solution') * 1000)
+        .duration(160)
+        .EUt(7)
+        .buildAndRegister()
+
+DISTILLERY.recipeBuilder()
+        .fluidInputs(fluid('gelatin_solution') * 1000)
+        .outputs(metaitem('dustGelatin'))
+        .fluidOutputs(fluid('wastewater') * 1000)
+        .duration(160)
+        .EUt(7)
+        .buildAndRegister()
+
+//Re-added the roasted coffee bean recipes
+PYROLYSE_OVEN.recipeBuilder()
+	.inputs(ore('gemChippedGradedCoffeeSmall'))
+	.outputs(item('gregtechfoodoption:gtfo_oredict_item:1018'))
+	.fluidOutputs(fluid('water') * 100)
+	.duration(40)
+	.EUt(120)
+	.buildAndRegister()
+	
+PYROLYSE_OVEN.recipeBuilder()
+	.inputs(ore('gemChippedGradedCoffeeLarge'))
+	.outputs(item('gregtechfoodoption:gtfo_oredict_item:1019'))
+	.fluidOutputs(fluid('water') * 200)
+	.duration(80)
+	.EUt(120)
+	.buildAndRegister()
+	
 // Force GTFO skewers to be made with only long rods
 // Skewer * 16
 mods.gregtech.lathe.removeByInput(200, [metaitem('stickTitanium')], null)
@@ -495,3 +544,6 @@ mods.gregtech.lathe.removeByInput(30, [metaitem('stickSteel')], null)
 
 // Skewer * 8
 mods.gregtech.lathe.removeByInput(40, [metaitem('stickStainlessSteel')], null)
+
+// Baking Soda Solution * 1000
+mods.gregtech.blender.removeByInput(8, [metaitem('dustSodiumBicarbonate')], [fluid('water') * 1000])

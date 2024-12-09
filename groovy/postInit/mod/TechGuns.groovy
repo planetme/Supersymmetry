@@ -1,6 +1,6 @@
+import globals.Globals
 import techguns.items.guns.GenericGun;
-import techguns.plugins.crafttweaker.GunStatTweaker;
-import static globals.Globals.*
+import techguns.plugins.crafttweaker.EnumGunStat;
 
 def name_removals = [
 	"techguns:basicmachine_0_ammo_press",
@@ -169,13 +169,31 @@ def name_removals = [
 	"techguns:itemshared_149_upgrade_blast_protection_1",
 	"techguns:itemshared_152_upgrade_blast_protection_2",
 	"techguns:itemshared_155_upgrade_blast_protection_3",
-
-
+	"techguns:itemshared_86_nuggetcopper",
+	"techguns:itemshared_87_nuggetlead",
+	"techguns:itemshared_88_nuggetsteel"
 ]
 
 for (name in name_removals) {
 	crafting.remove(name);
 }
+
+mods.jei.ingredient.yeet( // hide techguns plates, ingots, and ores
+		item('techguns:itemshared', 46),
+		item('techguns:itemshared', 47),
+		item('techguns:itemshared', 48),
+		item('techguns:itemshared', 49),
+		item('techguns:itemshared', 50),
+		item('techguns:itemshared', 52),
+		item('techguns:itemshared', 54),
+		item('techguns:itemshared', 78),
+		item('techguns:itemshared', 79),
+		item('techguns:itemshared', 80),
+		item('techguns:itemshared', 81),
+		item('techguns:itemshared', 82),
+		item('techguns:itemshared', 83),
+		item('techguns:itemshared', 85)
+)
 
 crafting.replaceShaped("techguns:stielgranate", item('techguns:stielgranate'), [
 		[null, null, null],
@@ -362,23 +380,23 @@ crafting.replaceShapeless("techguns:sandbags", item('techguns:sandbags') * 8, [
 
 crafting.addShaped("tg_sawoff", item('techguns:sawedoff'), [
 		[metaitem('gun.barrel.steel'), ore('springSmallSteel'), metaitem('gun.barrel.steel')],
-		[item('techguns:itemshared', 34), item('techguns:itemshared', 2), item('techguns:itemshared', 42)],
+		[item('techguns:itemshared', 33), item('techguns:itemshared', 2), item('techguns:itemshared', 42)],
 		[null, null, null]
 ]);
 
-Globals.solders.each { key, val ->
-	mods.gregtech.assembler.recipeBuilder()
-		.inputs(metaitem('hull.lv'))
-		.inputs(metaitem('electric.motor.lv'))
-		.inputs(ore('circuitLv'))
-		.inputs(ore('wireFineRedAlloy'))
-		.inputs(ore('plateSteel') * 4)
-		.fluidInputs(fluid(key) * val)
-		.outputs(item('techguns:basicmachine', 3))
-		.duration(100)
-		.EUt(Globals.voltAmps[1])
-		.buildAndRegister()
+mods.gregtech.assembler.recipeBuilder()
+	.inputs(metaitem('hull.lv'))
+	.inputs(metaitem('electric.motor.lv'))
+	.inputs(ore('circuitLv'))
+	.inputs(ore('wireFineRedAlloy'))
+	.inputs(ore('plateSteel') * 4)
+	.fluidInputs(fluid('soldering_alloy') * 72)
+	.outputs(item('techguns:basicmachine', 3))
+	.duration(100)
+	.EUt(Globals.voltAmps[1])
+	.buildAndRegister()
 
+Globals.solders.each { key, val ->
 	recipemap('weapons_factory').recipeBuilder()
 		.inputs(ore('plateIron') * 3)
 		.inputs(ore('stickIron') * 2)
@@ -433,11 +451,11 @@ Globals.solders.each { key, val ->
 
 	recipemap('weapons_factory').recipeBuilder()
 		.inputs([ore('plateSteel'),
-				 ore('springSmallSteel'),
-				 ore('gearSmallSteel'),
-				 metaitem('gun.barrel.steel'),
-				 ore('plateRubber')*2,
-				 item('techguns:itemshared:11')
+					ore('springSmallSteel'),
+					ore('gearSmallSteel'),
+					metaitem('gun.barrel.steel'),
+					ore('plateRubber')*2,
+					item('techguns:itemshared:11')
 		])
 		.fluidInputs(fluid(key) * val)
 		.outputs(item('techguns:pistol'))
@@ -447,10 +465,10 @@ Globals.solders.each { key, val ->
 
 	recipemap('weapons_factory').recipeBuilder()
 		.inputs([ore('plateSteel'),
-				 ore('springSmallSteel')*4
+					ore('springSmallSteel')*4
 		])
 		.fluidInputs(fluid(key) * val)
-		.notConsumable(circuit(1))
+		.circuitMeta(1)
 		.outputs(item('techguns:itemshared:12')*4)
 		.duration(10)
 		.EUt(Globals.voltAmps[1])
@@ -462,7 +480,7 @@ Globals.solders.each { key, val ->
 				ore('plateSteel')
 		])
 		.fluidInputs(fluid(key) * val)
-		.notConsumable(circuit(2))
+		.circuitMeta(2)
 		.outputs(item('techguns:itemshared:10')*4)
 		.duration(20)
 		.EUt(Globals.voltAmps[2])
@@ -474,7 +492,7 @@ Globals.solders.each { key, val ->
 				ore('plateSteel')
 		])
 		.fluidInputs(fluid(key) * val)
-		.notConsumable(circuit(3))
+		.circuitMeta(3)
 		.outputs(item('techguns:itemshared:14')*4)
 		.duration(20)
 		.EUt(Globals.voltAmps[2])
@@ -486,7 +504,7 @@ Globals.solders.each { key, val ->
 					ore('plateSteel') * 2
 			])
 			.fluidInputs(fluid(key) * val)
-			.notConsumable(circuit(4))
+			.circuitMeta(4)
 			.outputs(item('techguns:itemshared:16'))
 			.duration(20)
 			.EUt(Globals.voltAmps[2])
@@ -498,7 +516,7 @@ Globals.solders.each { key, val ->
 					ore('plateSteel') * 3
 			])
 			.fluidInputs(fluid(key) * val)
-			.notConsumable(circuit(5))
+			.circuitMeta(5)
 			.outputs(item('techguns:itemshared:18'))
 			.duration(20)
 			.EUt(Globals.voltAmps[3])
@@ -510,7 +528,7 @@ Globals.solders.each { key, val ->
 					ore('plateSteel') * 2
 			])
 			.fluidInputs(fluid(key) * val)
-			.notConsumable(circuit(6))
+			.circuitMeta(6)
 			.outputs(item('techguns:itemshared:20') * 2)
 			.duration(20)
 			.EUt(Globals.voltAmps[2])
@@ -522,7 +540,7 @@ Globals.solders.each { key, val ->
 					ore('plateStainlessSteel')
 			])
 			.fluidInputs(fluid(key) * val)
-			.notConsumable(circuit(1))
+			.circuitMeta(1)
 			.outputs(item('techguns:itemshared:22') * 4)
 			.duration(20)
 			.EUt(Globals.voltAmps[2])
@@ -550,7 +568,7 @@ Globals.solders.each { key, val ->
 				item('techguns:itemshared', 42),
 				item('techguns:itemshared', 9)
 		])
-		.notConsumable(circuit(1))
+		.circuitMeta(1)
 		.fluidInputs(fluid(key) * val)
 		.outputs(item('techguns:thompson'))
 		.duration(200)
@@ -670,7 +688,7 @@ Globals.solders.each { key, val ->
 			])
 			.fluidInputs(fluid(key) * val)
 			.outputs(item('techguns:rocketlauncher'))
-			.notConsumable(circuit(1))
+			.circuitMeta(1)
 			.duration(200)
 			.EUt(Globals.voltAmps[4])
 			.buildAndRegister();
@@ -687,7 +705,7 @@ Globals.solders.each { key, val ->
 			])
 			.fluidInputs(fluid(key) * val)
 			.outputs(item('techguns:guidedmissilelauncher'))
-			.notConsumable(circuit(2))
+			.circuitMeta(2)
 			.duration(200)
 			.EUt(Globals.voltAmps[4])
 			.buildAndRegister();
@@ -696,7 +714,7 @@ Globals.solders.each { key, val ->
 			.inputs([
 					item('techguns:itemshared', 39) * 8,
 					item('techguns:itemshared', 36),
-					item('minecraft:flint_and_steel') * 4,
+					item('minecraft:flint_and_steel'),
 					metaitem('ringSteel') * 4,
 					metaitem('cover.screen'),
 					ore('circuitHv') * 4,
@@ -704,7 +722,7 @@ Globals.solders.each { key, val ->
 			])
 			.fluidInputs(fluid(key) * val)
 			.outputs(item('techguns:grimreaper'))
-			.notConsumable(circuit(3))
+			.circuitMeta(3)
 			.duration(200)
 			.EUt(Globals.voltAmps[5])
 			.buildAndRegister();
@@ -814,29 +832,9 @@ Globals.solders.each { key, val ->
 }
 
 recipemap('weapons_factory').recipeBuilder()
-		.inputs([ore('plateBrass'),
-				 ore('gunpowder'),
-				 ore('roundLead')
-		])
-		.outputs(item('techguns:itemshared', 1)*12)
-		.duration(10)
-		.EUt(Globals.voltAmps[1])
-		.buildAndRegister();
-
-recipemap('weapons_factory').recipeBuilder()
-		.inputs([ore('plateBrass') * 2,
-				 ore('gunpowder'),
-				 ore('roundLead') * 3
-		])
-		.outputs(item('techguns:itemshared', 2) * 5)
-		.duration(10)
-		.EUt(Globals.voltAmps[1])
-		.buildAndRegister();
-
-recipemap('weapons_factory').recipeBuilder()
 		.inputs([ore('plateCupronickel'),
-				 ore('dustGunpowder'),
-				 ore('roundLead')
+				ore('dustGunpowder'),
+				ore('roundLead')
 		])
 		.outputs(item('techguns:itemshared', 3)*8)
 		.duration(10)
@@ -845,8 +843,8 @@ recipemap('weapons_factory').recipeBuilder()
 
 recipemap('weapons_factory').recipeBuilder()
 		.inputs([ore('plateAluminium'),
-				 ore('dustGunpowder'),
-				 ore('roundLead')
+				ore('dustGunpowder'),
+				ore('roundLead')
 		])
 		.outputs(item('techguns:itemshared', 4)*8)
 		.duration(10)
@@ -855,12 +853,12 @@ recipemap('weapons_factory').recipeBuilder()
 
 recipemap('weapons_factory').recipeBuilder()
 		.inputs([
-				 ore('dustGunpowder') * 2,
-				 metaitem('plateSteel'),
-				 metaitem('ringSteel') * 2,
-				 metaitem('boltSteel')
+				ore('dustGunpowder') * 2,
+				metaitem('plateSteel'),
+				metaitem('ringSteel') * 2,
+				metaitem('boltSteel')
 		])
-		.notConsumable(circuit(1))
+		.circuitMeta(1)
 		.outputs(item('techguns:itemshared', 5)*4)
 		.duration(80)
 		.EUt(30)
@@ -874,7 +872,7 @@ recipemap('weapons_factory').recipeBuilder()
 				metaitem('boltSteel'),
 				metaitem('roundLead') * 4
 		])
-		.notConsumable(circuit(2))
+		.circuitMeta(2)
 		.outputs(item('techguns:fraggrenade')*4)
 		.duration(80)
 		.EUt(30)
@@ -882,9 +880,31 @@ recipemap('weapons_factory').recipeBuilder()
 
 recipemap('weapons_factory').recipeBuilder()
 		.inputs(ore('platePlastic')*4)
-		.notConsumable(circuit(1))
+		.circuitMeta(1)
 		.outputs(item('techguns:itemshared', 43))
 		.duration(200)
+		.EUt(Globals.voltAmps[1])
+		.buildAndRegister();
+
+recipemap('weapons_factory').recipeBuilder()
+		.circuitMeta(1)
+		.inputs([ore('plateBrass'),
+				ore('gunpowder'),
+				ore('roundLead')
+		])
+		.outputs(item('techguns:itemshared', 1)*12)
+		.duration(10)
+		.EUt(Globals.voltAmps[1])
+		.buildAndRegister();
+
+recipemap('weapons_factory').recipeBuilder()
+		.circuitMeta(2)
+		.inputs([ore('plateBrass') * 2,
+				ore('gunpowder'),
+				ore('roundLead') * 3
+		])
+		.outputs(item('techguns:itemshared', 2) * 5)
+		.duration(10)
 		.EUt(Globals.voltAmps[1])
 		.buildAndRegister();
 
@@ -1098,16 +1118,6 @@ crafting.addShaped("bound_leather", metaitem('bound_leather')*8, [
 		[item('techguns:itemshared:77'), item('techguns:itemshared:77'), item('techguns:itemshared:77')]
 ]);
 
-item('techguns:itemshared', 77)
-
-recipemap('canner').recipeBuilder()
-		.inputs(item('techguns:itemshared', 3) * 4)
-		.inputs(ore('dustPhosphorus'))
-		.outputs(item('techguns:itemshared', 110) * 4)
-		.duration(100)
-		.EUt(30)
-		.buildAndRegister();
-
 recipemap('weapons_factory').recipeBuilder()
 		.circuitMeta(1)
 		.inputs(ore('plateUltraHighMolecularWeightPolyethylene') * 5)
@@ -1279,70 +1289,77 @@ recipemap('canner').recipeBuilder()
 //MV weapons: 32 DPS
 //HV weapons: 64 DPS
 
-//Handcannon (1 shot per 1.5 seconds)
-GunStatTweaker.setWeaponStat("handcannon","DAMAGE",13);
-GunStatTweaker.setWeaponStat("handcannon","DAMAGE_MIN",11);
-
-//Bolt Action (1 shot per second)
-GunStatTweaker.setWeaponStat("boltaction","DAMAGE",10);
-GunStatTweaker.setWeaponStat("boltaction","DAMAGE_MIN",8);
-
-//Pistol (4 shots per second)
-GunStatTweaker.setWeaponStat("pistol","DAMAGE",5);
-GunStatTweaker.setWeaponStat("pistol","DAMAGE_MIN",4);
-
-//Double Barrel Shotgun (8 bullets per shot, 1 shot per second)
-GunStatTweaker.setWeaponStat("sawedoff","DAMAGE",2.4);
-GunStatTweaker.setWeaponStat("sawedoff","DAMAGE_MIN",2);
-
-//Revolver (2.5 shots per second)
-GunStatTweaker.setWeaponStat("revolver","DAMAGE",6);
-GunStatTweaker.setWeaponStat("revolver","DAMAGE_MIN",4);
-
-//Combat Shotgun (8 bullets per shot, 1 shot per second)
-GunStatTweaker.setWeaponStat("combatshotgun","DAMAGE",2.4);
-GunStatTweaker.setWeaponStat("combatshotgun","DAMAGE_MIN",2);
-
-//Thompson SMG (6 shots per second)
-GunStatTweaker.setWeaponStat("thompson","DAMAGE",6);
-GunStatTweaker.setWeaponStat("thompson","DAMAGE_MIN",5);
-
-//AK47 (6 shots per second)
-GunStatTweaker.setWeaponStat("ak47","DAMAGE",6);
-GunStatTweaker.setWeaponStat("ak47","DAMAGE_MIN",5);
-
-//M4 (6 shots per second)
-GunStatTweaker.setWeaponStat("m4","DAMAGE",6);
-GunStatTweaker.setWeaponStat("m4","DAMAGE_MIN",5);
-
-//Infiltrator (6 shots per second)
-GunStatTweaker.setWeaponStat("m4_infiltrator","DAMAGE",6);
-GunStatTweaker.setWeaponStat("m4_infiltrator","DAMAGE_MIN",5);
-
-//Mac-10 (6 shots per second)
-GunStatTweaker.setWeaponStat("mac10","DAMAGE", 6);
-GunStatTweaker.setWeaponStat("mac10","DAMAGE_MIN", 5);
-
-//AUG (6 shots per second)
-GunStatTweaker.setWeaponStat("aug","DAMAGE", 12);
-GunStatTweaker.setWeaponStat("aug","DAMAGE_MIN", 10);
-
-//LMG (10 shots per second)
-GunStatTweaker.setWeaponStat("lmg","DAMAGE", 7);
-GunStatTweaker.setWeaponStat("lmg","DAMAGE_MIN", 6);
-
-//AS50 (2 shots per second)
-GunStatTweaker.setWeaponStat("as50","DAMAGE", 34);
-GunStatTweaker.setWeaponStat("as50","DAMAGE_MIN", 30);
-
-//Vector (10 shots per second)
-GunStatTweaker.setWeaponStat("vector","DAMAGE", 7);
-GunStatTweaker.setWeaponStat("vector","DAMAGE_MIN", 6);
-
-//Scar (5 shots per second)
-GunStatTweaker.setWeaponStat("scar","DAMAGE", 14);
-GunStatTweaker.setWeaponStat("scar","DAMAGE_MIN", 12);
-
-//Minigun (20 shots per second)
-GunStatTweaker.setWeaponStat("minigun","DAMAGE", 5);
-GunStatTweaker.setWeaponStat("minigun","DAMAGE_MIN", 4);
+// TODO: Waiting for grs update
+//SetWeaponStat = { String weapon, String stat, float value ->
+//	def gun = (GenericGun) item('techguns:' + weapon).getItem();
+//	gun.setGunStat(EnumGunStat.parseFromString(stat), value);
+//}
+//
+//
+////Handcannon (1 shot per 1.5 seconds)
+//SetWeaponStat("handcannon","DAMAGE",13);
+//SetWeaponStat("handcannon","DAMAGE_MIN",11);
+//
+////Bolt Action (1 shot per second)
+//SetWeaponStat("boltaction","DAMAGE",10);
+//SetWeaponStat("boltaction","DAMAGE_MIN",8);
+//
+////Pistol (4 shots per second)
+//SetWeaponStat("pistol","DAMAGE",5);
+//SetWeaponStat("pistol","DAMAGE_MIN",4);
+//
+////Double Barrel Shotgun (8 bullets per shot, 1 shot per second)
+//SetWeaponStat("sawedoff","DAMAGE",2.4);
+//SetWeaponStat("sawedoff","DAMAGE_MIN",2);
+//
+////Revolver (2.5 shots per second)
+//SetWeaponStat("revolver","DAMAGE",6);
+//SetWeaponStat("revolver","DAMAGE_MIN",4);
+//
+////Combat Shotgun (8 bullets per shot, 1 shot per second)
+//SetWeaponStat("combatshotgun","DAMAGE",2.4);
+//SetWeaponStat("combatshotgun","DAMAGE_MIN",2);
+//
+////Thompson SMG (6 shots per second)
+//SetWeaponStat("thompson","DAMAGE",6);
+//SetWeaponStat("thompson","DAMAGE_MIN",5);
+//
+////AK47 (6 shots per second)
+//SetWeaponStat("ak47","DAMAGE",6);
+//SetWeaponStat("ak47","DAMAGE_MIN",5);
+//
+////M4 (6 shots per second)
+//SetWeaponStat("m4","DAMAGE",6);
+//SetWeaponStat("m4","DAMAGE_MIN",5);
+//
+////Infiltrator (6 shots per second)
+//SetWeaponStat("m4_infiltrator","DAMAGE",6);
+//SetWeaponStat("m4_infiltrator","DAMAGE_MIN",5);
+//
+////Mac-10 (6 shots per second)
+//SetWeaponStat("mac10","DAMAGE", 6);
+//SetWeaponStat("mac10","DAMAGE_MIN", 5);
+//
+////AUG (6 shots per second)
+//SetWeaponStat("aug","DAMAGE", 12);
+//SetWeaponStat("aug","DAMAGE_MIN", 10);
+//
+////LMG (10 shots per second)
+//SetWeaponStat("lmg","DAMAGE", 7);
+//SetWeaponStat("lmg","DAMAGE_MIN", 6);
+//
+////AS50 (2 shots per second)
+//SetWeaponStat("as50","DAMAGE", 34);
+//SetWeaponStat("as50","DAMAGE_MIN", 30);
+//
+////Vector (10 shots per second)
+//SetWeaponStat("vector","DAMAGE", 7);
+//SetWeaponStat("vector","DAMAGE_MIN", 6);
+//
+////Scar (5 shots per second)
+//SetWeaponStat("scar","DAMAGE", 14);
+//SetWeaponStat("scar","DAMAGE_MIN", 12);
+//
+////Minigun (20 shots per second)
+//SetWeaponStat("minigun","DAMAGE", 5);
+//SetWeaponStat("minigun","DAMAGE_MIN", 4);
