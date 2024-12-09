@@ -1778,7 +1778,12 @@ public class FirstDegreeMaterials {
                 .colorAverage()
                 .build();
 
-        //FREE ID: 8360
+        HeatedGreenCoke = new Material.Builder(8360, SuSyUtility.susyId('heated_green_coke'))
+                .gem(1, 2000)
+                .color(0x7b8752).iconSet(LIGNITE)
+                .components(Carbon)
+                .flags(FLAMMABLE, NO_SMELTING, NO_SMASHING, MORTAR_GRINDABLE)
+                .build();
 
         CrudeTin = new Material.Builder(8361, SuSyUtility.susyId('crude_tin'))
                 .liquid(new FluidBuilder().temperature(600))
@@ -2092,7 +2097,12 @@ public class FirstDegreeMaterials {
 
         TreatedSamariumAlloy.getProperty(PropertyKey.INGOT).setMagneticMaterial(SamariumAlloyMagnetic);
 
-        //FREE ID: 8406
+        CobaltNitrateSolution = new Material.Builder(8406, SuSyUtility.susyId('cobalt_nitrate_solution'))
+                .liquid()
+                .components(Cobalt, Nitrogen * 2, Oxygen * 6, Water)
+                .colorAverage()
+                .build()
+                .setFormula("(Co(NO3)2)(H2O)", true)
 
         Dichlorosilane = new Material.Builder(8407, SuSyUtility.susyId('dichlorosilane'))
                 .gas()
@@ -3074,7 +3084,13 @@ public class FirstDegreeMaterials {
                 .colorAverage()
                 .build();
 
-        // FREE ID: 8572
+        AmmoniumMetatungstate = new Material.Builder(8571, SuSyUtility.susyId('ammonium_metatungstate'))
+                .dust()
+                .components(Nitrogen * 6, Hydrogen * 26, Tungsten * 12, Oxygen * 40)
+                .color(0x400959)
+                .build();
+
+        AmmoniumMetatungstate.setFormula("(NH4)6(H2W12O40)", true)
 
         ImpureBariumSulfide = new Material.Builder(8572, SuSyUtility.susyId("impure_barium_sulfide"))
                 .dust()
@@ -3395,9 +3411,10 @@ public class FirstDegreeMaterials {
         Kovar = new Material.Builder(8619, SuSyUtility.susyId('kovar'))
                 .ingot()
                 .iconSet(SHINY)
-                .flags(GENERATE_ROD, GENERATE_LONG_ROD, GENERATE_RING, GENERATE_PLATE, NO_UNIFICATION)
+                .flags(GENERATE_ROD, GENERATE_LONG_ROD, GENERATE_RING, GENERATE_PLATE, DISABLE_DECOMPOSITION)
                 .components(Iron * 2, Nickel * 1, Cobalt * 1)
                 .colorAverage()
+                .blastTemp(1723, GasTier.LOW, 120, 24)
                 .build();
 
         Kovar.setFormula("Fe10Ni5Co3", true)

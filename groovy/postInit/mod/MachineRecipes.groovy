@@ -965,12 +965,12 @@ recipemap('assembler').recipeBuilder()
 //Catalytic Reformer
 
 recipemap('assembler').recipeBuilder()
-		.inputs(metaitem('hull.ev'))
-		.inputs(metaitem('frameTitanium') * 4)
-		.inputs(metaitem('electric.pump.ev') * 2)
-		.inputs(metaitem('pipeHugeFluidTitanium'))
-		.inputs(metaitem('rotorTitanium'))
-		.inputs(ore('circuitEv'))
+		.inputs(metaitem('hull.hv'))
+		.inputs(metaitem('frameStainlessSteel') * 4)
+		.inputs(metaitem('electric.pump.hv') * 2)
+		.inputs(metaitem('pipeHugeFluidStainlessSteel'))
+		.inputs(metaitem('rotorStainlessSteel'))
+		.inputs(ore('circuitHv'))
 		.outputs(metaitem('catalytic_reformer'))
 		.circuitMeta(3)
 		.EUt(480)
@@ -1098,3 +1098,9 @@ RecyclingHelper.addShaped('gregtech:large_fluid_pump', metaitem('large_fluid_pum
 ])
 
 crafting.addShapeless("gregtech:ocean_pumper_switching", metaitem('large_fluid_pump'), [metaitem('ocean_pumper')]);
+
+RecyclingHelper.addShaped("gregtech:sieve_distillation_tower", metaitem('sieve_distillation_tower'), [
+	[metaitem('frameStainlessSteel'),ore('circuitHv'),metaitem('frameStainlessSteel')],
+	[metaitem('springKanthal'),metaitem('hull.Hv'),metaitem('springKanthal')],
+	[metaitem('frameStainlessSteel'),metaitem('electric.pump.hv'),metaitem('frameStainlessSteel')]
+])

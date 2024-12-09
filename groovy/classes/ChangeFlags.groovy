@@ -94,6 +94,9 @@ class ChangeFlags {
         setupFluidType(Selenium, FluidStorageKeys.LIQUID, 494)
         //setupFluidType(Iron3Chloride, FluidStorageKeys.GAS, 590) 
 
+        setupFluidType(CarbonDioxide, SusyFluidStorageKeys.SUPERCRITICAL, 304)
+        setupFluidType(Propane, SusyFluidStorageKeys.SUPERCRITICAL, 370)
+
         Polybenzimidazole.setProperty(SuSyPropertyKey.FIBER, new FiberProperty(false, true, true))
         Polytetrafluoroethylene.setProperty(SuSyPropertyKey.FIBER, new FiberProperty(false, true, false))
         Polydimethylsiloxane.setProperty(PropertyKey.FLUID, new FluidProperty(FluidStorageKeys.LIQUID, new FluidBuilder()));
@@ -125,7 +128,7 @@ class ChangeFlags {
         Titanium.addFlags("generate_foil", "generate_spring", "generate_spring_small");
         Lead.addFlags("generate_round");
         Aluminium.addFlags("generate_round");
-        Nickel.addFlags("generate_rod");
+        Nickel.addFlags("generate_rod", "generate_foil");
         Tungsten.addFlags("generate_fine_wire");
         Molybdenum.addFlags("generate_fine_wire");
         Tantalum.addFlags("generate_rod");
@@ -138,6 +141,7 @@ class ChangeFlags {
         Alumina.addFlags("generate_catalyst_bed");
         Silver.addFlags("generate_catalyst_bed");
         Nickel.addFlags("generate_catalyst_bed");
+        Magnesia.addFlags("generate_catalyst_bed");
         Brass.addFlags("generate_ring");
         Indium.addFlags("generate_plate");
         BisphenolA.addFlags("no_unification");
