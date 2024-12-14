@@ -88,14 +88,6 @@ def name_removals = [
 	'gregtech:fluid_filter_sodalite',
 	'gregtech:fluid_filter_lazurite',
 	'gregtech:comparator_certus',
-	'gregtech:gregtech.machine.world_accelerator.lv',
-	'gregtech:gregtech.machine.world_accelerator.mv',
-	'gregtech:gregtech.machine.world_accelerator.hv',
-	'gregtech:gregtech.machine.world_accelerator.ev',
-	'gregtech:gregtech.machine.world_accelerator.iv',
-	'gregtech:gregtech.machine.world_accelerator.luv',
-	'gregtech:gregtech.machine.world_accelerator.zpm',
-	'gregtech:gregtech.machine.world_accelerator.uv',
 	'gregtech:nano_helmet',
 	'gregtech:nano_chestplate',
 	'gregtech:nano_leggings',
@@ -173,6 +165,10 @@ for (name in ore_smelting_removals) {
     furnace.removeByInput(item('gregtech:ore_' + name + '_0', 2))
 }
 
+// Malachite Ore
+furnace.removeByInput(item('gregtech:ore_malachite_0', 0))
+furnace.add(item('gregtech:ore_malachite_0', 0), metaitem('ingotCopper') * 2, 0.5)
+
 // Polycaprolactam Bar * 1
 mods.gregtech.electric_blast_furnace.removeByInput(120, [metaitem('dustCaprolactam')], [fluid('nitrogen') * 1000])
 // Monocrystalline Silicon Boule * 1
@@ -208,6 +204,12 @@ mods.gregtech.assembler.removeByInput(1920, [metaitem('gemLapotron'), metaitem('
 
 //CONSUMES IRON BUCKET ONLY BECAUSE THE OUTPUT IS IN AN IRON BUCKET
 crafting.addShapeless('gregtech:salt_water_bucket', item('forge:bucketfilled').withNbt(["FluidName": "salt_water", "Amount": 1000]), [item('minecraft:water_bucket').noreturn(), metaitem('dustSalt'), metaitem('dustSalt')])
+
+RecyclingHelper.replaceShaped('gregtech:large_steel_boiler', metaitem('large_boiler.steel'), [
+		[ore('cableGtSingleCopper'), ore('circuitMv'), ore('cableGtSingleCopper')],
+		[ore('circuitMv'), item('gregtech:boiler_firebox_casing', 1), ore('circuitMv')],
+		[ore('cableGtSingleCopper'), ore('circuitMv'), ore('cableGtSingleCopper')]
+])
 
 RecyclingHelper.replaceShaped('gregtech:bronze_primitive_blast_furnace', metaitem('primitive_blast_furnace.bronze'), [
     [ore('craftingToolHardHammer'), ore('stickBronze'), ore('screwBronze')],
@@ -608,8 +610,8 @@ mods.gregtech.fluid_solidifier.recipeBuilder()
 
 // Home block
 crafting.replaceShaped('susy:home_block', item('susy:home_block'), [
-        [null, ore('toolHammer'), null],
-        [null, ore('stoneSmooth'), null],
+        [null, null, null],
+        [ore('toolHammer'), ore('stoneSmooth'), null],
         [null, null, null]
 ])
 
@@ -1113,7 +1115,7 @@ mods.gregtech.circuit_assembler.removeByInput(600, [metaitem('circuit_board.plas
 mods.gregtech.circuit_assembler.removeByInput(600, [metaitem('circuit_board.plastic'), metaitem('plate.system_on_chip'), metaitem('wireFineCopper') * 2, metaitem('boltTin') * 2], [fluid('tin') * 144])
 
 Globals.solders.each { key, val ->
-        mods.gregtech.assembler.recipeBuilder()
+        mods.gregtech.circuit_assembler.recipeBuilder()
                 .inputs(metaitem('circuit_board.good'))
                 .inputs(metaitem('plate.integrated_logic_circuit'))
                 .inputs(ore('boltRedAlloy') * 2)
@@ -1126,7 +1128,7 @@ Globals.solders.each { key, val ->
 }
 
 Globals.solders.each { key, val ->
-        mods.gregtech.assembler.recipeBuilder()
+        mods.gregtech.circuit_assembler.recipeBuilder()
                 .inputs(metaitem('circuit_board.plastic'))
                 .inputs(metaitem('plate.integrated_logic_circuit'))
                 .inputs(ore('boltRedAlloy') * 2)
@@ -1147,7 +1149,7 @@ Globals.solders.each { key, val ->
 		.inputs(ore('componentTransistor') * 2)
 		.inputs(ore('wireFineCopper') * 2)
 		.fluidInputs(fluid(key) * val)
-		.outputs(metaitem('circuit.microprocessor') * 5)
+		.outputs(metaitem('circuit.microprocessor') * 8)
 		.duration(200)
 		.EUt(60)
 		.buildAndRegister();
@@ -1160,7 +1162,7 @@ Globals.solders.each { key, val ->
 		.inputs(ore('wireFineCopper') * 2)
 		.inputs(ore('boltTin') * 2)
 		.fluidInputs(fluid(key) * val)
-		.outputs(metaitem('circuit.microprocessor') * 10)
+		.outputs(metaitem('circuit.microprocessor') * 12)
 		.duration(50)
 		.EUt(600)
 		.buildAndRegister();
