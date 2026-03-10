@@ -1,26 +1,25 @@
 {
   "preRequisites:11": [
-    407
+    786,
+    1996974870
   ],
   "properties:10": {
     "betterquesting:10": {
       "desc:8": "susy.quest.db.410.desc",
       "icon:10": {
-        "Count:3": 1,
-        "id:8": "forge:bucketfilled",
+        "id:8": "appliedenergistics2:dummy_fluid_item",
         "tag:10": {
-          "Amount:3": 1000,
           "FluidName:8": "bio_diesel"
         }
       },
       "name:8": "susy.quest.db.410.title",
+      "questlogic:8": "OR",
       "tasklogic:8": "OR"
     }
   },
   "questID:3": 410,
   "tasks:9": {
     "0:10": {
-      "index:3": 0,
       "requiredFluids:9": {
         "0:10": {
           "Amount:3": 1000,

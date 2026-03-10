@@ -7,17 +7,40 @@
       "desc:8": "susy.quest.db.97148971.desc",
       "frame:8": "GATE",
       "icon:10": {
-        "Count:3": 1,
         "Damage:2": 14800,
         "id:8": "gregtech:machine"
       },
+      "ismain:1": 1,
       "name:8": "susy.quest.db.97148971.title"
     }
   },
   "questID:3": 97148971,
+  "rewards:9": {
+    "0:10": {
+      "rewardID:8": "bq_standard:item",
+      "rewards:9": {
+        "0:10": {
+          "Count:3": 1,
+          "id:8": "simple_trophies:trophy",
+          "tag:10": {
+            "TrophyColorBlue:3": 26,
+            "TrophyColorGreen:3": 37,
+            "TrophyColorRed:3": 55,
+            "TrophyItem:10": {
+              "Count:3": 1,
+              "Damage:2": 14800,
+              "id:8": "gregtech:machine"
+            },
+            "TrophyName:8": "Sticks and Stones",
+            "TrophyShowsTooltip:1": 1,
+            "TrophyVariant:8": "classic"
+          }
+        }
+      }
+    }
+  },
   "tasks:9": {
     "0:10": {
-      "index:3": 0,
       "requiredItems:9": {
         "0:10": {
           "Count:3": 1,
@@ -35,12 +58,12 @@
           "id:8": "gregtech:machine"
         },
         "3:10": {
-          "Count:3": 4,
-          "id:8": "pyrotech:masonry_brick_slab"
+          "Count:3": 16,
+          "id:8": "pyrotech:masonry_brick_block"
         },
         "4:10": {
-          "Count:3": 14,
-          "id:8": "pyrotech:masonry_brick_block"
+          "Count:3": 4,
+          "id:8": "pyrotech:masonry_brick_slab"
         }
       },
       "taskID:8": "bq_standard:retrieval"

@@ -1,17 +1,27 @@
-import classes.*;
+import static prePostInit.Recipemaps.*
+import classes.*
 import globals.Globals
+import static gregtech.api.GTValues.*
 import gregtech.api.metatileentity.multiblock.CleanroomType
 
-def ASSEMBLER = recipemap('assembler')
-def VACUUM = recipemap('vacuum_chamber')
-def CIRCUIT_ASSEMBLER = recipemap('circuit_assembler')
-
 mods.gregtech.circuit_assembler.removeByInput(16, [metaitem('circuit_board.basic'), metaitem('plate.integrated_logic_circuit'), metaitem('component.resistor') * 2, metaitem('component.diode') * 2, metaitem('wireFineCopper') * 2, metaitem('boltTin') * 2], [fluid('soldering_alloy') * 72])
+
+// NAND Chip * 8
+mods.gregtech.circuit_assembler.removeByInput(120, [metaitem('circuit_board.good'), metaitem('plate.simple_system_on_chip'), metaitem('boltRedAlloy') * 2, metaitem('wireFineTin') * 2], [fluid('soldering_alloy') * 72])
+// NAND Chip * 8
+mods.gregtech.circuit_assembler.removeByInput(120, [metaitem('circuit_board.good'), metaitem('plate.simple_system_on_chip'), metaitem('boltRedAlloy') * 2, metaitem('wireFineTin') * 2], [fluid('tin') * 144])
+// NAND Chip * 12
+mods.gregtech.circuit_assembler.removeByInput(120, [metaitem('circuit_board.plastic'), metaitem('plate.simple_system_on_chip'), metaitem('boltRedAlloy') * 2, metaitem('wireFineTin') * 2], [fluid('soldering_alloy') * 72])
+// NAND Chip * 12
+mods.gregtech.circuit_assembler.removeByInput(120, [metaitem('circuit_board.plastic'), metaitem('plate.simple_system_on_chip'), metaitem('boltRedAlloy') * 2, metaitem('wireFineTin') * 2], [fluid('tin') * 144])
+// Microprocessor * 6
+mods.gregtech.circuit_assembler.removeByInput(600, [metaitem('circuit_board.plastic'), metaitem('plate.system_on_chip'), metaitem('wireFineCopper') * 2, metaitem('boltTin') * 2], [fluid('soldering_alloy') * 72])
+// Microprocessor * 6
+mods.gregtech.circuit_assembler.removeByInput(600, [metaitem('circuit_board.plastic'), metaitem('plate.system_on_chip'), metaitem('wireFineCopper') * 2, metaitem('boltTin') * 2], [fluid('tin') * 144])
 
 // Microprocessor * 5
 mods.gregtech.circuit_assembler.removeByInput(60, [metaitem('circuit_board.plastic'), metaitem('plate.central_processing_unit'), metaitem('component.resistor') * 2, metaitem('component.capacitor') * 2, metaitem('component.transistor') * 2, metaitem('wireFineCopper') * 2], [fluid('tin') * 144 * 144])
 mods.gregtech.circuit_assembler.removeByInput(60, [metaitem('circuit_board.plastic'), metaitem('plate.central_processing_unit'), metaitem('component.resistor') * 2, metaitem('component.capacitor') * 2, metaitem('component.transistor') * 2, metaitem('wireFineCopper') * 2], [fluid('soldering_alloy') * 72 * 72])
-
 
 // Integrated Processor * 2
 mods.gregtech.circuit_assembler.removeByInput(60, [metaitem('circuit_board.plastic'), metaitem('plate.central_processing_unit'), metaitem('component.resistor') * 4, metaitem('component.capacitor') * 4, metaitem('component.transistor') * 4, metaitem('wireFineRedAlloy') * 4], [fluid('tin') * 144 * 144])
@@ -31,8 +41,29 @@ mods.gregtech.circuit_assembler.removeByInput(480, [metaitem('frameAluminium') *
 mods.gregtech.circuit_assembler.removeByInput(120, [metaitem('circuit_board.plastic'), metaitem('circuit.assembly') * 2, metaitem('component.diode') * 4, metaitem('plate.random_access_memory') * 4, metaitem('wireFineElectrum') * 16, metaitem('boltBlueAlloy') * 16], [fluid('soldering_alloy') * 144])
 mods.gregtech.circuit_assembler.removeByInput(120, [metaitem('circuit_board.plastic'), metaitem('circuit.assembly') * 2, metaitem('component.diode') * 4, metaitem('plate.random_access_memory') * 4, metaitem('wireFineElectrum') * 16, metaitem('boltBlueAlloy') * 16], [fluid('tin') * 288])
 
-
 Globals.solders.each { key, val ->
+       CIRCUIT_ASSEMBLER.recipeBuilder()
+                .inputs(metaitem('circuit_board.good'))
+                .inputs(metaitem('plate.integrated_logic_circuit'))
+                .inputs(ore('boltAnnealedCopper') * 2)
+                .inputs(ore('wireFineTin') * 2)
+                .fluidInputs(fluid(key) * val)
+                .outputs(metaitem('circuit.nand_chip') * 16)
+                .duration(10)
+                .EUt(VA[LV])
+                .buildAndRegister();
+
+        CIRCUIT_ASSEMBLER.recipeBuilder()
+                .inputs(metaitem('circuit_board.plastic'))
+                .inputs(metaitem('plate.integrated_logic_circuit'))
+                .inputs(ore('boltAnnealedCopper') * 2)
+                .inputs(ore('wireFineTin') * 2)
+                .fluidInputs(fluid(key) * val)
+                .outputs(metaitem('circuit.nand_chip') * 24)
+                .duration(10)
+                .EUt(VA[LV])
+                .buildAndRegister();
+
         CIRCUIT_ASSEMBLER.recipeBuilder()
                 .inputs(metaitem('circuit_board.plastic'))
                 .inputs(metaitem('plate.integrated_logic_circuit'))
@@ -40,11 +71,35 @@ Globals.solders.each { key, val ->
                 .inputs(metaitem('component.smd.diode') * 2)
                 .inputs(metaitem('wireFineCopper') * 2)
                 .inputs(metaitem('boltTin') * 2)
-		.fluidInputs(fluid(key) * val)
-                .outputs(metaitem('circuit.microprocessor') * 5)
+                .fluidInputs(fluid(key) * val)
+                .outputs(metaitem('circuit.microprocessor') * 6)
                 .duration(200)
-                .EUt(240)
+                .EUt(VA[MV])
                 .buildAndRegister()
+
+        CIRCUIT_ASSEMBLER.recipeBuilder()
+                .inputs(metaitem('circuit_board.plastic'))
+                .inputs(metaitem('plate.central_processing_unit'))
+                .inputs(metaitem('component.smd.resistor') * 2)
+                .inputs(metaitem('component.smd.capacitor') * 2)
+                .inputs(metaitem('component.smd.transistor') * 2)
+                .inputs(ore('wireFineCopper') * 2)
+                .fluidInputs(fluid(key) * val)
+                .outputs(metaitem('circuit.microprocessor') * 12)
+                .duration(200)
+                .EUt(VA[MV])
+                .buildAndRegister();
+
+        CIRCUIT_ASSEMBLER.recipeBuilder()
+                .inputs(metaitem('circuit_board.plastic'))
+                .inputs(metaitem('plate.system_on_chip'))
+                .inputs(ore('wireFineCopper') * 2)
+                .inputs(ore('boltTin') * 2)
+                .fluidInputs(fluid(key) * val)
+                .outputs(metaitem('circuit.microprocessor') * 18)
+                .duration(50)
+                .EUt(VA[EV])
+                .buildAndRegister();
 
         CIRCUIT_ASSEMBLER.recipeBuilder()
                 .inputs(metaitem('circuit_board.plastic'))
@@ -53,10 +108,10 @@ Globals.solders.each { key, val ->
                 .inputs(metaitem('component.smd.capacitor') * 4)
                 .inputs(metaitem('component.smd.transistor') * 4)
                 .inputs(metaitem('wireFineAnnealedCopper') * 4)
-		.fluidInputs(fluid(key) * val)
+                .fluidInputs(fluid(key) * val)
                 .outputs(metaitem('circuit.processor') * 2)
                 .duration(200)
-                .EUt(240)
+                .EUt(VA[MV])
                 .buildAndRegister()
 
         CIRCUIT_ASSEMBLER.recipeBuilder()
@@ -66,25 +121,25 @@ Globals.solders.each { key, val ->
                 .inputs(metaitem('component.smd.transistor') * 4)
                 .inputs(metaitem('wireFineElectrum') * 8)
                 .inputs(metaitem('boltAnnealedCopper') * 8)
-		.fluidInputs(fluid(key) * (val * 2))
+                .fluidInputs(fluid(key) * (val * 2))
                 .outputs(metaitem('circuit.assembly') * 1)
                 .duration(300)
-                .EUt(360)
+                .EUt(VA[MV])
                 .buildAndRegister()
 
-	CIRCUIT_ASSEMBLER.recipeBuilder()
-		.inputs(metaitem('frameAluminium'))
-		.inputs(metaitem('circuit.assembly') * 2)
-		.inputs(ore('componentDiode') * 4)
-		.inputs(metaitem('plate.random_access_memory') * 4)
-		.inputs(metaitem('plate.central_processing_unit') * 4)
-		.inputs(ore('cableGtSingleElectrum') * 4)
-		.fluidInputs(fluid(key) * (val * 2))
-		.outputs(metaitem('circuit.workstation'))
-		.cleanroom(CleanroomType.CLEANROOM)
-		.duration(400)
-		.EUt(480)
-		.buildAndRegister();
+        CIRCUIT_ASSEMBLER.recipeBuilder()
+                .inputs(metaitem('frameAluminium'))
+                .inputs(metaitem('circuit.assembly') * 2)
+                .inputs(metaitem('component.smd.diode') * 4)
+                .inputs(metaitem('plate.nand_memory_chip') * 4)
+                .inputs(metaitem('plate.central_processing_unit') * 4)
+                .inputs(ore('cableGtSingleElectrum') * 4)
+                .fluidInputs(fluid(key) * (val * 2))
+                .outputs(metaitem('circuit.workstation'))
+                .cleanroom(CleanroomType.CLEANROOM)
+                .duration(400)
+                .EUt(VA[MV])
+                .buildAndRegister();
 
         CIRCUIT_ASSEMBLER.recipeBuilder()
                 .inputs(metaitem('frameAluminium') * 2)
@@ -95,8 +150,9 @@ Globals.solders.each { key, val ->
                 .inputs(metaitem('wireGtSingleAnnealedCopper') * 16)
                 .fluidInputs(fluid(key) * (val * 4))
                 .outputs(metaitem('circuit.mainframe'))
+                .cleanroom(CleanroomType.CLEANROOM)
                 .duration(500)
-		.EUt(480)
-		.buildAndRegister();
+                .EUt(VA[HV])
+                .buildAndRegister();
 
 }

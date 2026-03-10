@@ -1,6 +1,5 @@
 {
   "preRequisites:11": [
-    418,
     419
   ],
   "properties:10": {
@@ -8,7 +7,6 @@
       "desc:8": "susy.quest.db.421.desc",
       "frame:8": "GATE",
       "icon:10": {
-        "Count:3": 1,
         "id:8": "gregtech:crowbar",
         "tag:10": {
           "DisallowContainerItem:1": 0,
@@ -33,7 +31,6 @@
   "tasks:9": {
     "0:10": {
       "ignoreNBT:1": 1,
-      "index:3": 0,
       "requiredItems:9": {
         "0:10": {
           "Count:3": 1,

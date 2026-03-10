@@ -7,21 +7,17 @@
       "desc:8": "susy.quest.db.180.desc",
       "frame:8": "GATE",
       "icon:10": {
-        "Count:3": 1,
-        "id:8": "forge:bucketfilled",
+        "id:8": "appliedenergistics2:dummy_fluid_item",
         "tag:10": {
-          "Amount:3": 1000,
-          "FluidName:8": "treated_sulfuric_diesel"
+          "FluidName:8": "treated_sulfuric_light_cycle_oil"
         }
       },
-      "ismain:1": 1,
       "name:8": "susy.quest.db.180.title"
     }
   },
   "questID:3": 180,
   "tasks:9": {
     "0:10": {
-      "index:3": 0,
       "taskID:8": "bq_standard:checkbox"
     }
   }

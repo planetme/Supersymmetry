@@ -1,5 +1,5 @@
-mods/
 buildOut/
+build/server
 *client.zip
 .mixin.out/
 armourers_workshop/
@@ -8,17 +8,20 @@ fonts/
 journeymap/
 logs/
 saves/
-build/buildOut/
+mods/*.jar
+.idea/
 
 .curseclient
 usercache.json
 usernamecache.json
 minecraftinstance.json
 instance.json
+index.toml
 
 *.log
 *.txt
 *.dll
+*.so
 
 build/modlist.*
 config/InvTweaks.cfg
@@ -81,7 +84,7 @@ screenshots/
 
 backups/
 
-resourcepacks/
+# resourcepacks/
 
 local/
 
@@ -92,4 +95,15 @@ jarmods/
 visualores/
 
 *__pycache__*
+
+.idea/material_theme_project_new.xml
+.idea/discord.xml
+.idea/workspace.xml
 servers.dat
+mods/*.jar
+/mods/1.12.2/*.jar
+/mods/memory_repo
+vintagefix/transformerCache/jarDiscoverer.cache
+/journeymap
+hotbar.nbt
+config/susy/susy_canary

@@ -1,0 +1,38 @@
+import static prePostInit.Recipemaps.*
+import static gregtech.api.GTValues.*
+
+FIXED_BR.recipeBuilder()
+    .notConsumable(ore('catalystBedSupportedNickel'))
+    .fluidInputs(fluid('naphthalene') * 1000)
+    .fluidInputs(fluid('hydrogen') * 4000)
+    .fluidOutputs(fluid('tetralin') * 1000)
+    .duration(40)
+    .EUt(VA[MV])
+    .buildAndRegister()
+
+FLUIDIZED_BR.recipeBuilder()
+    .notConsumable(ore('dustSupportedNickel'))
+    .notConsumable(fluid('tetralin') * 8000)
+    .inputs(ore('dustCoal') * 16)
+    .fluidInputs(fluid('hydrogen') * 22440)
+    .fluidOutputs(fluid('fuel_gas') * 4830)
+    .fluidOutputs(fluid('liquefaction_oil') * 940)
+    .duration(30)
+    .EUt(VA[MV])
+    .buildAndRegister()
+
+SIEVE_DT.recipeBuilder()
+    .fluidInputs(fluid('liquefaction_oil') * 940)
+    .fluidOutputs(fluid('light_liquefaction_oil') * 610)
+    .fluidOutputs(fluid('crude_medium_liquefaction_oil') * 330)
+    .duration(30)
+    .EUt(VA[MV])
+    .buildAndRegister()
+
+VACUUM_DT.recipeBuilder()
+    .fluidInputs(fluid('crude_medium_liquefaction_oil') * 330)
+    .outputs(metaitem('dustCoal') * 4)
+    .fluidOutputs(fluid('sulfuric_medium_liquefaction_oil') * 300)
+    .duration(30)
+    .EUt(VA[MV])
+    .buildAndRegister()

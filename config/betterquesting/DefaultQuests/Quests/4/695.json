@@ -1,22 +1,22 @@
 {
   "preRequisites:11": [
-    479
+    479,
+    2127737218
   ],
   "properties:10": {
     "betterquesting:10": {
       "desc:8": "susy.quest.db.695.desc",
       "icon:10": {
-        "Count:3": 1,
         "Damage:2": 719,
         "id:8": "gregtech:meta_item_1"
       },
-      "name:8": "susy.quest.db.695.title"
+      "name:8": "susy.quest.db.695.title",
+      "tasklogic:8": "OR"
     }
   },
   "questID:3": 695,
   "tasks:9": {
     "0:10": {
-      "index:3": 0,
       "requiredItems:9": {
         "0:10": {
           "Count:3": 1,

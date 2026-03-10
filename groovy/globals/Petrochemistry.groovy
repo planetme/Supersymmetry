@@ -1,18 +1,13 @@
 package globals
 
+import groovy.transform.TupleConstructor
+
 class Petrochemistry {
-
-    public static void main (String[] args) {}
-
+    @TupleConstructor
     public static class Oil {
         String name
         String brine
 
-        Oil(String name, String brine) {
-            this.name = name
-            this.brine = brine
-        }
-        
         def getDiluted(int amount) {
             return fluid('diluted_' + this.name) * amount
         }
@@ -104,10 +99,20 @@ class Petrochemistry {
         boolean strippable = true
     }
 
+    trait Naphthenic {
+        boolean naphthenic = true
+        int naphthenic_acid_content // L of NA per 1kL of fraction
+
+        def getAlkaliTreated(int amount) {
+            return fluid('alkali_treated_' + this.name) * amount
+        }
+    }
+
     public static class OilFraction {
         String name
         boolean strippable = false
         boolean sulfuric = false
+        boolean naphthenic = false
 
         OilFraction(String name) {
             this.name = name
@@ -149,23 +154,27 @@ class Petrochemistry {
 
     public static fractions = [
         heavy_gas_oil : new OilFraction('heavy_gas_oil').withTraits(Sulfuric, Heatable, Strippable),
-        light_gas_oil : new OilFraction('light_gas_oil').withTraits(Sulfuric, Heatable, Strippable),
-        kerosene : new OilFraction('kerosene').withTraits(Sulfuric, Heatable, Strippable),
+        light_gas_oil : new OilFraction('light_gas_oil').withTraits(Sulfuric, Heatable, Strippable, Naphthenic).tap { naphthenic_acid_content = 1 },
+        kerosene : new OilFraction('kerosene').withTraits(Sulfuric, Heatable, Strippable, Naphthenic).tap { naphthenic_acid_content = 25 },
         heavy_naphtha : new OilFraction('heavy_naphtha').withTraits(Sulfuric, Heatable),
         light_cycle_oil : new OilFraction('light_cycle_oil').withTraits(Sulfuric, Heatable),
         naphtha : new OilFraction('naphtha').withTraits(Crude),
         light_naphtha : new OilFraction('light_naphtha').withTraits(Sulfuric, Heatable),
+        medium_liquefaction_oil : new OilFraction('medium_liquefaction_oil').withTraits(Sulfuric, Heatable)
     ]
 
     public static crackables = [
-        vacuum_oil_residue : new Crackable('vacuum_oil_residue').withTraits(CatalyticCrackable, HydroCrackable, ThermalCrackable).tap { hydrogen_consumed = 3560; gas_produced = 550 },
-        atmospheric_oil_residue : new Crackable('atmospheric_oil_residue').withTraits(CatalyticCrackable, HydroCrackable, ThermalCrackable).tap { hydrogen_consumed = 3540; gas_produced = 610 },
-        light_gas_oil : new Crackable('light_gas_oil').withTraits(HydroCrackable, SteamCrackable).tap { hydrogen_consumed = 880; gas_produced = 1790 },
-        heavy_gas_oil : new Crackable('heavy_gas_oil').withTraits(CatalyticCrackable, HydroCrackable, SteamCrackable).tap { hydrogen_consumed = 1490; gas_produced = 1020 },
+        vacuum_oil_residue : new Crackable('vacuum_oil_residue').withTraits(CatalyticCrackable, HydroCrackable, ThermalCrackable).tap { hydrogen_consumed = 15680; gas_produced = 550 },
+        atmospheric_oil_residue : new Crackable('atmospheric_oil_residue').withTraits(CatalyticCrackable, HydroCrackable, ThermalCrackable).tap { hydrogen_consumed = 14320; gas_produced = 590 },
+        light_gas_oil : new Crackable('light_gas_oil').withTraits(HydroCrackable, SteamCrackable).tap { hydrogen_consumed = 19570; gas_produced = 1790 },
+        heavy_gas_oil : new Crackable('heavy_gas_oil').withTraits(CatalyticCrackable, HydroCrackable, SteamCrackable).tap { hydrogen_consumed = 9970; gas_produced = 1020 },
         ethane : new Crackable('ethane').withTraits(SteamCrackable),
         propane : new Crackable('propane').withTraits(SteamCrackable),
         butane : new Crackable('butane').withTraits(SteamCrackable),
-        light_cycle_oil : new Crackable('light_cycle_oil').withTraits(HydroCrackable).tap { hydrogen_consumed = 1130; gas_produced = 1290 }
+        light_cycle_oil : new Crackable('light_cycle_oil').withTraits(HydroCrackable).tap { hydrogen_consumed = 1100; gas_produced = 1290 },
+        synthetic_wax : new Crackable('synthetic_wax').withTraits(HydroCrackable).tap { hydrogen_consumed = 7530; gas_produced = 1410 },
+        heavy_naphtha : new Crackable('heavy_naphtha').withTraits(SteamCrackable),
+        light_naphtha : new Crackable('light_naphtha').withTraits(SteamCrackable),
     ]
 
     public static oils = [

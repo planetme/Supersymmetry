@@ -1,8 +1,4 @@
 {
-  "preRequisiteTypes:7": [
-    1,
-    0
-  ],
   "preRequisites:11": [
     478,
     502
@@ -12,7 +8,6 @@
       "desc:8": "susy.quest.db.479.desc",
       "frame:8": "GATE",
       "icon:10": {
-        "Count:3": 1,
         "Damage:2": 988,
         "id:8": "gregtech:machine"
       },
@@ -21,9 +16,32 @@
     }
   },
   "questID:3": 479,
+  "rewards:9": {
+    "0:10": {
+      "rewardID:8": "bq_standard:item",
+      "rewards:9": {
+        "0:10": {
+          "Count:3": 1,
+          "id:8": "simple_trophies:trophy",
+          "tag:10": {
+            "TrophyColorBlue:3": 42,
+            "TrophyColorGreen:3": 207,
+            "TrophyColorRed:3": 222,
+            "TrophyItem:10": {
+              "Count:3": 1,
+              "Damage:2": 988,
+              "id:8": "gregtech:machine"
+            },
+            "TrophyName:8": "How Do I Get Titanium?",
+            "TrophyShowsTooltip:1": 1,
+            "TrophyVariant:8": "neon"
+          }
+        }
+      }
+    }
+  },
   "tasks:9": {
     "0:10": {
-      "index:3": 0,
       "requiredItems:9": {
         "0:10": {
           "Count:3": 1,

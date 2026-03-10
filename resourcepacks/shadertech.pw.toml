@@ -1,0 +1,13 @@
+name = "ShaderTech"
+filename = "ShaderTech.zip"
+side = "client"
+
+[download]
+hash-format = "sha1"
+hash = "4d3f8ebd2c4b3e881cec0d2e2be6893b040bb24d"
+mode = "metadata:curseforge"
+
+[update]
+[update.curseforge]
+file-id = 6655846
+project-id = 851152

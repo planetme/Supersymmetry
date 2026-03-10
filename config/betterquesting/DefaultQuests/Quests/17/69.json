@@ -1,13 +1,14 @@
 {
   "preRequisites:11": [
+    1403511944,
     68
   ],
   "properties:10": {
     "betterquesting:10": {
       "desc:8": "susy.quest.db.69.desc",
       "icon:10": {
-        "Count:3": 1,
-        "id:8": "minecraft:netherrack"
+        "Damage:2": 10203,
+        "id:8": "gregtech:meta_item_2"
       },
       "name:8": "susy.quest.db.69.title"
     }
@@ -16,7 +17,6 @@
   "tasks:9": {
     "0:10": {
       "dimension:3": -1,
-      "index:3": 0,
       "name:8": "The Nether",
       "taskID:8": "bq_standard:location"
     }

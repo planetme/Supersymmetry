@@ -7,8 +7,7 @@
     "betterquesting:10": {
       "desc:8": "susy.quest.db.124.desc",
       "icon:10": {
-        "Count:3": 1,
-        "Damage:2": 165,
+        "Damage:2": 10313,
         "id:8": "gregtech:meta_item_2"
       },
       "name:8": "susy.quest.db.124.title"
@@ -17,11 +16,10 @@
   "questID:3": 124,
   "tasks:9": {
     "0:10": {
-      "index:3": 0,
       "requiredItems:9": {
         "0:10": {
           "Count:3": 1,
-          "Damage:2": 165,
+          "Damage:2": 10313,
           "id:8": "gregtech:meta_item_2"
         }
       },

@@ -8,7 +8,6 @@
       "desc:8": "susy.quest.db.679.desc",
       "frame:8": "GATE",
       "icon:10": {
-        "Count:3": 1,
         "Damage:2": 113,
         "id:8": "gregtech:meta_dust"
       },
@@ -19,12 +18,18 @@
   "questID:3": 679,
   "tasks:9": {
     "0:10": {
+      "entryLogic:8": "OR",
       "index:3": 1,
       "requiredItems:9": {
         "0:10": {
           "Count:3": 1,
           "Damage:2": 6202,
           "id:8": "gregtech:meta_item_2"
+        },
+        "1:10": {
+          "Count:3": 1,
+          "Damage:2": 113,
+          "id:8": "gregtech:meta_dust"
         }
       },
       "taskID:8": "bq_standard:retrieval"

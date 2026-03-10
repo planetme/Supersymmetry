@@ -8,14 +8,11 @@
       "desc:8": "susy.quest.db.175.desc",
       "frame:8": "GATE",
       "icon:10": {
-        "Count:3": 1,
-        "id:8": "forge:bucketfilled",
+        "id:8": "appliedenergistics2:dummy_fluid_item",
         "tag:10": {
-          "Amount:3": 1000,
           "FluidName:8": "desalted_oil_light"
         }
       },
-      "ismain:1": 1,
       "name:8": "susy.quest.db.175.title",
       "tasklogic:8": "OR"
     }
@@ -23,7 +20,6 @@
   "questID:3": 175,
   "tasks:9": {
     "0:10": {
-      "index:3": 0,
       "requiredFluids:9": {
         "0:10": {
           "Amount:3": 1000,

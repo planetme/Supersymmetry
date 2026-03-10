@@ -7,7 +7,6 @@
       "desc:8": "susy.quest.db.793.desc",
       "frame:8": "GATE",
       "icon:10": {
-        "Count:3": 1,
         "id:8": "susy:separator_rotor"
       },
       "ismain:1": 1,
@@ -17,7 +16,6 @@
   "questID:3": 793,
   "tasks:9": {
     "0:10": {
-      "index:3": 0,
       "requiredItems:9": {
         "0:10": {
           "Count:3": 1,
@@ -25,13 +23,8 @@
           "id:8": "gregtech:machine"
         },
         "1:10": {
-          "Count:3": 25,
+          "Count:3": 1,
           "id:8": "susy:separator_rotor"
-        },
-        "2:10": {
-          "Count:3": 99,
-          "Damage:2": 4,
-          "id:8": "gregtech:metal_casing"
         }
       },
       "taskID:8": "bq_standard:retrieval"

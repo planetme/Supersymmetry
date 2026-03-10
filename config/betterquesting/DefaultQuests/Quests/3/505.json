@@ -7,7 +7,6 @@
     "betterquesting:10": {
       "desc:8": "susy.quest.db.505.desc",
       "icon:10": {
-        "Count:3": 1,
         "Damage:2": 17006,
         "id:8": "gregtech:machine"
       },
@@ -18,7 +17,6 @@
   "questID:3": 505,
   "tasks:9": {
     "0:10": {
-      "index:3": 0,
       "requiredItems:9": {
         "0:10": {
           "Count:3": 1,
@@ -28,11 +26,6 @@
         "1:10": {
           "Count:3": 1,
           "id:8": "susy:evaporation_bed"
-        },
-        "2:10": {
-          "Count:3": 26,
-          "Damage:2": 4,
-          "id:8": "gregtech:stone_smooth"
         }
       },
       "taskID:8": "bq_standard:retrieval"

@@ -1,6 +1,8 @@
+import static prePostInit.Recipemaps.*
+import globals.Globals
 import com.cleanroommc.groovyscript.api.GroovyLog
 import gregtech.api.metatileentity.multiblock.CleanroomType
-import globals.Globals
+import static gregtech.api.GTValues.*
 
 /*
 def solders = [
@@ -37,13 +39,14 @@ def name_removals = [
         'appliedenergistics2:materials/annihilationcore',
         'appliedenergistics2:materials/basiccard',
         'appliedenergistics2:materials/advancedcard',
-        'extracells:storagecomponent/item/256k',
-        'extracells:storagecomponent/item/1024k',
-        'extracells:storagecomponent/item/4096k',
-        'extracells:storagecomponent/item/16384k',
-        'extracells:storagecomponent/fluid/256k',
-        'extracells:storagecomponent/fluid/1024k',
-        'extracells:storagecomponent/fluid/4096k',
+        'nae2:item/material/storage/cell_part_256k',
+        'nae2:item/material/storage/cell_part_1024k',
+        'nae2:item/material/storage/cell_part_4096k',
+        'nae2:item/material/storage/cell_part_16384k',
+        'nae2:item/material/storage/cell_part_fluid_256k',
+        'nae2:item/material/storage/cell_part_fluid_1024k',
+        'nae2:item/material/storage/cell_part_fluid_4096k',
+        'nae2:item/material/storage/cell_part_fluid_16384k',
         'appliedenergistics2:network/cells/storage_cell_1k',
         'appliedenergistics2:network/cells/storage_cell_4k',
         'appliedenergistics2:network/cells/storage_cell_16k',
@@ -56,15 +59,6 @@ def name_removals = [
         'appliedenergistics2:network/cells/spatial_storage_cell_16_cubed',
         'appliedenergistics2:network/cells/spatial_storage_cell_128_cubed',
         'appliedenergistics2:network/cells/view_cell',
-        'extracells:storagecells/item/owncasing/256k',
-        'extracells:storagecells/item/owncasing/1024k',
-        'extracells:storagecells/item/owncasing/4096k',
-        'extracells:storagecells/item/owncasing/16384k',
-        'extracells:storagecells/fluid/owncasing/256k',
-        'extracells:storagecells/fluid/owncasing/1024k',
-        'extracells:storagecells/fluid/owncasing/4096k',
-        'extracells:storagecells/case/fluid',
-        'extracells:storagecells/case/item',
         'appliedenergistics2:network/parts/export_bus',
         'appliedenergistics2:network/parts/export_bus_fluid',
         'appliedenergistics2:network/cells/empty_storage_cell',
@@ -83,10 +77,13 @@ def name_removals = [
         'appliedenergistics2:network/parts/planes_annihilatition_identity',
         'appliedenergistics2:network/parts/import_bus_fluid',
         'appliedenergistics2:network/parts/import_bus',
-        'extracpus:crafting_storage_256k',
-        'extracpus:crafting_storage_1024k',
-        'extracpus:crafting_storage_4096k',
-        'extracpus:crafting_storage_16384k',
+        'nae2:block/crafting/storage_256k',
+        'nae2:block/crafting/storage_1024k',
+        'nae2:block/crafting/storage_4096k',
+        'nae2:block/crafting/storage_16384k',
+        'nae2:block/crafting/4x_coprocessor',
+        'nae2:block/crafting/16x_coprocessor',
+        'nae2:block/crafting/64x_coprocessor',
         'appliedenergistics2:network/blocks/crystal_processing_quartz_growth_accelerator',
         'appliedenergistics2:network/blocks/energy_vibration_chamber',
         'appliedenergistics2:network/blocks/quantum_link',
@@ -203,7 +200,6 @@ crafting.replaceShaped('appliedenergistics2:network/blocks/energy_energy_accepto
         [ore('plateTitanium'), item('appliedenergistics2:part:16'), ore('plateTitanium')]
 ])
 
-
 crafting.replaceShaped('appliedenergistics2:network/parts/export_bus', item('appliedenergistics2:part:260'), [
         [null, null, null],
         [ore('plateTitanium'), item('appliedenergistics2:material:43'), ore('plateTitanium')],
@@ -215,7 +211,6 @@ crafting.replaceShaped('appliedenergistics2:network/parts/export_bus_fluid', ite
         [ore('plateTitanium'), item('appliedenergistics2:material:43'), ore('plateTitanium')],
         [ore('plateTitanium'), metaitem('electric.pump.ev'), ore('plateTitanium')]
 ])
-
 
 crafting.replaceShaped('appliedenergistics2:network/parts/panels_semi_dark_monitor', item('appliedenergistics2:part:180'), [
         [null, null, null],
@@ -322,7 +317,7 @@ crafting.replaceShaped('appliedenergistics2:tools/misctools_entropy_manipulator'
 
 //GT Machines Recipes
 
-mods.gregtech.assembler.recipeBuilder()
+ASSEMBLER.recipeBuilder()
         .inputs(ore('plateStainlessSteel') * 4)
         .inputs(ore('wireFineGold') * 4)
         .inputs(ore('wireFineSilver') * 4)
@@ -331,21 +326,24 @@ mods.gregtech.assembler.recipeBuilder()
         .fluidInputs(fluid('soldering_alloy') * 72)
         .outputs(item('appliedenergistics2:material', 39))
         .duration(80)
-        .EUt(Globals.voltAmps[4])
+        .EUt(VA[EV])
         .buildAndRegister()
 
-mods.gregtech.assembler.recipeBuilder()
+ASSEMBLER.recipeBuilder()
         .inputs(ore('plateStainlessSteel') * 1)
         .inputs(ore('wireFinePlatinum') * 1)
         .inputs(metaitem('pattern.memory'))
         .inputs(item('appliedenergistics2:part', 16))
         .fluidInputs(fluid('soldering_alloy') * 72)
         .outputs(item('appliedenergistics2:material', 52))
+        .circuitMeta(2)
         .duration(80)
-        .EUt(Globals.voltAmps[4])
+        .EUt(VA[EV])
         .buildAndRegister()
 
-mods.gregtech.assembler.recipeBuilder()
+/*
+replaced NAE2 without Advanced Storage Housing
+ASSEMBLER.recipeBuilder()
         .inputs(ore('plateNaquadahAlloy') * 4)
         .inputs(ore('wireFineGold') * 4)
         .inputs(ore('wireFineSilver') * 4)
@@ -354,10 +352,11 @@ mods.gregtech.assembler.recipeBuilder()
         .fluidInputs(fluid('soldering_alloy') * 72)
         .outputs(item('extracells:storage.casing'))
         .duration(80)
-        .EUt(Globals.voltAmps[5])
+        .EUt(VA[IV])
         .buildAndRegister()
+*/
 
-mods.gregtech.assembler.recipeBuilder()
+ASSEMBLER.recipeBuilder()
         .inputs(ore('circuitEv'))
         .inputs(ore('gemExquisiteFluix'))
         .inputs(ore('wireFineSilver'))
@@ -366,30 +365,30 @@ mods.gregtech.assembler.recipeBuilder()
         .fluidInputs(fluid('soldering_alloy') * 72)
         .outputs(item('appliedenergistics2:part', 460))
         .duration(80)
-        .EUt(Globals.voltAmps[4])
+        .EUt(VA[EV])
         .buildAndRegister()
 
-mods.gregtech.assembler.recipeBuilder()
+ASSEMBLER.recipeBuilder()
         .inputs(ore('frameGtTitanium'))
         .inputs(ore('plateTitanium'))
         .inputs(ore('plateCertusQuartz'))
         .fluidInputs(fluid('soldering_alloy') * 72)
         .outputs(item('threng:big_assembler'))
         .duration(100)
-        .EUt(Globals.voltAmps[4])
+        .EUt(VA[EV])
         .buildAndRegister()
 
-mods.gregtech.assembler.recipeBuilder()
+ASSEMBLER.recipeBuilder()
         .inputs(item('gregtech:multiblock_casing', 2))
         .inputs(ore('plateTitanium'))
         .inputs(ore('plateCertusQuartz'))
         .fluidInputs(fluid('soldering_alloy') * 72)
         .outputs(item('threng:big_assembler', 1))
         .duration(100)
-        .EUt(Globals.voltAmps[4])
+        .EUt(VA[EV])
         .buildAndRegister()
 
-mods.gregtech.assembler.recipeBuilder()
+ASSEMBLER.recipeBuilder()
         .inputs(item('threng:big_assembler'))
         .inputs(ore('plateTitanium'))
         .inputs(item('appliedenergistics2:molecular_assembler'))
@@ -399,10 +398,10 @@ mods.gregtech.assembler.recipeBuilder()
         .fluidInputs(fluid('soldering_alloy') * 72)
         .outputs(item('threng:big_assembler', 2))
         .duration(100)
-        .EUt(Globals.voltAmps[4])
+        .EUt(VA[EV])
         .buildAndRegister()
 
-mods.gregtech.assembler.recipeBuilder()
+ASSEMBLER.recipeBuilder()
         .inputs(item('threng:big_assembler'))
         .inputs(ore('plateTitanium'))
         .inputs(item('appliedenergistics2:part', 16) * 2)
@@ -411,10 +410,10 @@ mods.gregtech.assembler.recipeBuilder()
         .fluidInputs(fluid('soldering_alloy') * 72)
         .outputs(item('threng:big_assembler', 3))
         .duration(100)
-        .EUt(Globals.voltAmps[4])
+        .EUt(VA[EV])
         .buildAndRegister()
 
-mods.gregtech.assembler.recipeBuilder()
+ASSEMBLER.recipeBuilder()
         .inputs(item('threng:big_assembler'))
         .inputs(ore('plateTitanium'))
         .inputs(item('appliedenergistics2:part', 16) * 2)
@@ -424,10 +423,10 @@ mods.gregtech.assembler.recipeBuilder()
         .fluidInputs(fluid('soldering_alloy') * 72)
         .outputs(item('threng:big_assembler', 4))
         .duration(100)
-        .EUt(Globals.voltAmps[4])
+        .EUt(VA[EV])
         .buildAndRegister()
 
-mods.gregtech.assembler.recipeBuilder()
+ASSEMBLER.recipeBuilder()
         .inputs(item('threng:big_assembler'))
         .inputs(ore('plateTitanium'))
         .inputs(item('appliedenergistics2:part', 16) * 2)
@@ -436,39 +435,39 @@ mods.gregtech.assembler.recipeBuilder()
         .fluidInputs(fluid('soldering_alloy') * 72)
         .outputs(item('threng:big_assembler', 5))
         .duration(100)
-        .EUt(Globals.voltAmps[4])
+        .EUt(VA[EV])
         .buildAndRegister()
 
-mods.gregtech.assembler.recipeBuilder()
+ASSEMBLER.recipeBuilder()
         .inputs(ore('plateTitanium'))
         .inputs(metaitem('plate.power_integrated_circuit'))
         .inputs(metaitem('storage.segment'))
         .fluidInputs(fluid('soldering_alloy') * 72)
         .outputs(item('appliedenergistics2:energy_cell'))
         .duration(100)
-        .EUt(Globals.voltAmps[4])
+        .EUt(VA[EV])
         .buildAndRegister()
 
-mods.gregtech.assembler.recipeBuilder()
+ASSEMBLER.recipeBuilder()
         .inputs(ore('plateTitanium'))
         .inputs(metaitem('plate.high_power_integrated_circuit'))
         .inputs(metaitem('storage.segment') * 8)
         .fluidInputs(fluid('soldering_alloy') * 72)
         .outputs(item('appliedenergistics2:dense_energy_cell'))
         .duration(100)
-        .EUt(Globals.voltAmps[5])
+        .EUt(VA[IV])
         .buildAndRegister()
 
-mods.gregtech.assembler.recipeBuilder()
+ASSEMBLER.recipeBuilder()
         .inputs(item('rs_ctr:edge_trigger'))
         .inputs(item('appliedenergistics2:part', 280) * 2)
         .fluidInputs(fluid('soldering_alloy') * 72)
         .outputs(item('appliedenergistics2:part', 80))
         .duration(20)
-        .EUt(Globals.voltAmps[1])
+        .EUt(VA[LV])
         .buildAndRegister()
 
-mods.gregtech.assembler.recipeBuilder()
+ASSEMBLER.recipeBuilder()
         .inputs(metaitem('hull.iv'))
         .inputs(ore('circuitIv'))
         .inputs(item('appliedenergistics2:interface'))
@@ -476,10 +475,10 @@ mods.gregtech.assembler.recipeBuilder()
         .fluidInputs(fluid('soldering_alloy') * 72)
         .outputs(item('threng:machine', 3))
         .duration(100)
-        .EUt(Globals.voltAmps[5])
+        .EUt(VA[IV])
         .buildAndRegister()
 
-mods.gregtech.assembler.recipeBuilder()
+ASSEMBLER.recipeBuilder()
         .inputs(metaitem('hull.iv'))
         .inputs(ore('circuitIv'))
         .inputs(item('appliedenergistics2:material', 53))
@@ -487,10 +486,10 @@ mods.gregtech.assembler.recipeBuilder()
         .fluidInputs(fluid('soldering_alloy') * 72)
         .outputs(item('threng:machine', 4))
         .duration(100)
-        .EUt(Globals.voltAmps[5])
+        .EUt(VA[IV])
         .buildAndRegister()
 
-mods.gregtech.assembler.recipeBuilder()
+ASSEMBLER.recipeBuilder()
         .inputs(metaitem('hull.ev'))
         .inputs(ore('circuitEv'))
         .inputs(ore('plateTitanium') * 2)
@@ -499,10 +498,10 @@ mods.gregtech.assembler.recipeBuilder()
         .fluidInputs(fluid('soldering_alloy') * 72)
         .outputs(item('appliedenergistics2:controller'))
         .duration(200)
-        .EUt(Globals.voltAmps[4])
+        .EUt(VA[EV])
         .buildAndRegister()
 
-mods.gregtech.assembler.recipeBuilder()
+ASSEMBLER.recipeBuilder()
         .inputs(ore('plateTitanium') * 4)
         .inputs(ore('stickTitanium') * 4)
         .inputs(ore('gemExquisiteFluix'))
@@ -511,10 +510,10 @@ mods.gregtech.assembler.recipeBuilder()
         .fluidInputs(fluid('soldering_alloy') * 72)
         .outputs(item('appliedenergistics2:spatial_pylon'))
         .duration(140)
-        .EUt(Globals.voltAmps[4])
+        .EUt(VA[EV])
         .buildAndRegister()
 
-mods.gregtech.assembler.recipeBuilder()
+ASSEMBLER.recipeBuilder()
         .inputs(ore('plateStainlessSteel'))
         .inputs(ore('wireFineGold'))
         .inputs(ore('wireFineRedAlloy'))
@@ -523,10 +522,10 @@ mods.gregtech.assembler.recipeBuilder()
         .fluidInputs(fluid('soldering_alloy') * 72)
         .outputs(item('appliedenergistics2:memory_card'))
         .duration(80)
-        .EUt(Globals.voltAmps[3])
+        .EUt(VA[HV])
         .buildAndRegister()
 
-mods.gregtech.assembler.recipeBuilder()
+ASSEMBLER.recipeBuilder()
         .inputs(ore('plateStainlessSteel'))
         .inputs(ore('wireFineGold'))
         .inputs(ore('wireFineRedAlloy'))
@@ -535,10 +534,10 @@ mods.gregtech.assembler.recipeBuilder()
         .fluidInputs(fluid('soldering_alloy') * 72)
         .outputs(item('appliedenergistics2:biometric_card'))
         .duration(80)
-        .EUt(Globals.voltAmps[3])
+        .EUt(VA[HV])
         .buildAndRegister()
 
-mods.gregtech.assembler.recipeBuilder()
+ASSEMBLER.recipeBuilder()
         .inputs(ore('plateRhodiumPlatedPalladium'))
         .inputs(metaitem('emitter.luv'))
         .inputs(metaitem('sensor.luv'))
@@ -547,48 +546,48 @@ mods.gregtech.assembler.recipeBuilder()
         .fluidInputs(fluid('soldering_alloy') * 72)
         .outputs(item('appliedenergistics2:material', 42))
         .duration(80)
-        .EUt(Globals.voltAmps[5])
+        .EUt(VA[IV])
         .buildAndRegister()
 
 Globals.wireCoatings.each { key, val ->
-        mods.gregtech.assembler.recipeBuilder()
+        ASSEMBLER.recipeBuilder()
                 .inputs(item('appliedenergistics2:part', 16))
                 .circuitMeta(1)
                 .fluidInputs(fluid(key) * val)
                 .outputs(item('appliedenergistics2:part', 36))
                 .duration(40)
-                .EUt(Globals.voltAmps[2])
+                .EUt(VA[MV])
                 .buildAndRegister()
 
-        mods.gregtech.assembler.recipeBuilder()
+        ASSEMBLER.recipeBuilder()
                 .inputs(item('appliedenergistics2:part', 16))
                 .inputs(ore('wireFineBorosilicateGlass'))
                 .circuitMeta(2)
                 .fluidInputs(fluid(key) * val)
                 .outputs(item('appliedenergistics2:part', 56))
                 .duration(40)
-                .EUt(Globals.voltAmps[2])
+                .EUt(VA[MV])
                 .buildAndRegister()
 }
 
-mods.gregtech.assembler.recipeBuilder()
+ASSEMBLER.recipeBuilder()
         .inputs(ore('wireFineRedAlloy'))
         .inputs(item('appliedenergistics2:part', 16))
         .circuitMeta(1)
         .fluidInputs(fluid('red_alloy') * 144)
         .outputs(item('appliedenergistics2:part', 280) * 8)
         .duration(80)
-        .EUt(Globals.voltAmps[1])
+        .EUt(VA[LV])
         .buildAndRegister()
 
-mods.gregtech.assembler.recipeBuilder()
+ASSEMBLER.recipeBuilder()
         .inputs(ore('wireFineRedAlloy'))
         .inputs(item('appliedenergistics2:part', 16))
         .circuitMeta(2)
         .fluidInputs(fluid('red_alloy') * 144)
         .outputs(item('appliedenergistics2:part', 281) * 8)
         .duration(80)
-        .EUt(Globals.voltAmps[1])
+        .EUt(VA[LV])
         .buildAndRegister()
 
 def quartz_dusts = [
@@ -597,7 +596,7 @@ def quartz_dusts = [
         'dustQuartzite'
 ]
 
-for(quartz in quartz_dusts) {
+for (quartz in quartz_dusts) {
         mods.gregtech.electric_blast_furnace.recipeBuilder()
                 .inputs(ore(quartz) * 60)
                 .circuitMeta(1)
@@ -620,7 +619,7 @@ for(quartz in quartz_dusts) {
 //TODO: Add alien storage segments item
 
 //Item cells
-mods.gregtech.circuit_assembler.recipeBuilder()
+CIRCUIT_ASSEMBLER.recipeBuilder()
         .inputs(ore('circuitEv'))
         .inputs(ore('wireFineSilver') * 4)
         .inputs(metaitem('plate.random_access_memory') * 1)
@@ -629,10 +628,10 @@ mods.gregtech.circuit_assembler.recipeBuilder()
         .outputs(item('appliedenergistics2:material:35'))
         .cleanroom(CleanroomType.CLEANROOM)
         .duration(200)
-        .EUt(Globals.voltAmps[4])
+        .EUt(VA[EV])
         .buildAndRegister()
 
-mods.gregtech.circuit_assembler.recipeBuilder()
+CIRCUIT_ASSEMBLER.recipeBuilder()
         .inputs(ore('circuitIv'))
         .inputs(ore('wireFineSilver') * 4)
         .inputs(metaitem('plate.random_access_memory') * 4)
@@ -641,10 +640,10 @@ mods.gregtech.circuit_assembler.recipeBuilder()
         .outputs(item('appliedenergistics2:material:36'))
         .cleanroom(CleanroomType.CLEANROOM)
         .duration(200)
-        .EUt(Globals.voltAmps[5])
+        .EUt(VA[IV])
         .buildAndRegister()
 
-mods.gregtech.circuit_assembler.recipeBuilder()
+CIRCUIT_ASSEMBLER.recipeBuilder()
         .inputs(ore('circuitLuv'))
         .inputs(ore('wireFineSilver') * 4)
         .inputs(metaitem('plate.random_access_memory') * 16)
@@ -653,10 +652,10 @@ mods.gregtech.circuit_assembler.recipeBuilder()
         .outputs(item('appliedenergistics2:material:37'))
         .cleanroom(CleanroomType.CLEANROOM)
         .duration(200)
-        .EUt(Globals.voltAmps[6])
+        .EUt(VA[LuV])
         .buildAndRegister()
 
-mods.gregtech.circuit_assembler.recipeBuilder()
+CIRCUIT_ASSEMBLER.recipeBuilder()
         .inputs(ore('circuitZpm'))
         .inputs(ore('wireFineSilver') * 4)
         .inputs(metaitem('plate.random_access_memory') * 64)
@@ -665,63 +664,62 @@ mods.gregtech.circuit_assembler.recipeBuilder()
         .outputs(item('appliedenergistics2:material:38'))
         .cleanroom(CleanroomType.CLEANROOM)
         .duration(200)
-        .EUt(Globals.voltAmps[7])
+        .EUt(VA[ZPM])
         .buildAndRegister()
 
 //TODO: Replace wafers with advanced memory plates 
 
-//Extracells item storage
-mods.gregtech.circuit_assembler.recipeBuilder()
+//NAE2 item storage
+CIRCUIT_ASSEMBLER.recipeBuilder()
         .inputs(ore('circuitUv'))
         .inputs(ore('wireFineSilver') * 4)
         .inputs(metaitem('plate.advanced_random_access_memory') * 1)
         .inputs(metaitem('storage.segment') * 1)
         .circuitMeta(1)
-        .outputs(item('extracells:storage.component:0'))
+        .outputs(item('nae2:material:1'))
         .cleanroom(CleanroomType.CLEANROOM)
         .duration(200)
-        .EUt(Globals.voltAmps[8])
+        .EUt(VA[UV])
         .buildAndRegister()
 
-mods.gregtech.circuit_assembler.recipeBuilder()
+CIRCUIT_ASSEMBLER.recipeBuilder()
         .inputs(ore('circuitUhv'))
         .inputs(ore('wireFineSilver') * 4)
         .inputs(metaitem('plate.advanced_random_access_memory') * 4)
         .inputs(metaitem('storage.segment') * 1)
         .circuitMeta(1)
-        .outputs(item('extracells:storage.component:1'))
+        .outputs(item('nae2:material:2'))
         .cleanroom(CleanroomType.CLEANROOM)
         .duration(200)
-        .EUt(Globals.voltAmps[9])
+        .EUt(VA[UHV])
         .buildAndRegister()
 
-mods.gregtech.circuit_assembler.recipeBuilder()
+CIRCUIT_ASSEMBLER.recipeBuilder()
         .inputs(ore('circuitUev'))
         .inputs(ore('wireFineSilver') * 4)
         .inputs(metaitem('plate.advanced_random_access_memory') * 16)
         .inputs(metaitem('storage.segment') * 1)
         .circuitMeta(1)
-        .outputs(item('extracells:storage.component:2'))
+        .outputs(item('nae2:material:3'))
         .cleanroom(CleanroomType.CLEANROOM)
         .duration(200)
-        .EUt(Globals.voltAmps[10])
+        .EUt(VA[UEV])
         .buildAndRegister()
 
-mods.gregtech.circuit_assembler.recipeBuilder()
+CIRCUIT_ASSEMBLER.recipeBuilder()
         .inputs(ore('circuitUiv'))
         .inputs(ore('wireFineSilver') * 4)
         .inputs(metaitem('plate.advanced_random_access_memory') * 64)
         .inputs(metaitem('storage.segment') * 1)
         .circuitMeta(1)
-        .outputs(item('extracells:storage.component:3'))
+        .outputs(item('nae2:material:4'))
         .cleanroom(CleanroomType.CLEANROOM)
         .duration(200)
-        .EUt(Globals.voltAmps[11])
+        .EUt(VA[UIV])
         .buildAndRegister()
 
-
 //Fluid cells
-mods.gregtech.circuit_assembler.recipeBuilder()
+CIRCUIT_ASSEMBLER.recipeBuilder()
         .inputs(ore('circuitEv'))
         .inputs(ore('wireFineSilver') * 4)
         .inputs(metaitem('plate.random_access_memory') * 1)
@@ -730,10 +728,10 @@ mods.gregtech.circuit_assembler.recipeBuilder()
         .outputs(item('appliedenergistics2:material:54'))
         .cleanroom(CleanroomType.CLEANROOM)
         .duration(200)
-        .EUt(Globals.voltAmps[4])
+        .EUt(VA[EV])
         .buildAndRegister()
 
-mods.gregtech.circuit_assembler.recipeBuilder()
+CIRCUIT_ASSEMBLER.recipeBuilder()
         .inputs(ore('circuitIv'))
         .inputs(ore('wireFineSilver') * 4)
         .inputs(metaitem('plate.random_access_memory') * 4)
@@ -742,10 +740,10 @@ mods.gregtech.circuit_assembler.recipeBuilder()
         .outputs(item('appliedenergistics2:material:55'))
         .cleanroom(CleanroomType.CLEANROOM)
         .duration(200)
-        .EUt(Globals.voltAmps[5])
+        .EUt(VA[IV])
         .buildAndRegister()
 
-mods.gregtech.circuit_assembler.recipeBuilder()
+CIRCUIT_ASSEMBLER.recipeBuilder()
         .inputs(ore('circuitLuv'))
         .inputs(ore('wireFineSilver') * 4)
         .inputs(metaitem('plate.random_access_memory') * 16)
@@ -754,10 +752,10 @@ mods.gregtech.circuit_assembler.recipeBuilder()
         .outputs(item('appliedenergistics2:material:56'))
         .cleanroom(CleanroomType.CLEANROOM)
         .duration(200)
-        .EUt(Globals.voltAmps[6])
+        .EUt(VA[LuV])
         .buildAndRegister()
 
-mods.gregtech.circuit_assembler.recipeBuilder()
+CIRCUIT_ASSEMBLER.recipeBuilder()
         .inputs(ore('circuitZpm'))
         .inputs(ore('wireFineSilver') * 4)
         .inputs(metaitem('plate.random_access_memory') * 64)
@@ -766,49 +764,60 @@ mods.gregtech.circuit_assembler.recipeBuilder()
         .outputs(item('appliedenergistics2:material:57'))
         .cleanroom(CleanroomType.CLEANROOM)
         .duration(200)
-        .EUt(Globals.voltAmps[7])
+        .EUt(VA[ZPM])
         .buildAndRegister()
 
-//Extracells fluid storage
-mods.gregtech.circuit_assembler.recipeBuilder()
+//NAE2 fluid storage
+CIRCUIT_ASSEMBLER.recipeBuilder()
         .inputs(ore('circuitUv'))
         .inputs(ore('wireFineSilver') * 4)
         .inputs(metaitem('plate.advanced_random_access_memory') * 1)
         .inputs(metaitem('storage.segment') * 1)
         .circuitMeta(2)
-        .outputs(item('extracells:storage.component:8'))
+        .outputs(item('nae2:material:5'))
         .cleanroom(CleanroomType.CLEANROOM)
         .duration(200)
-        .EUt(Globals.voltAmps[8])
+        .EUt(VA[UV])
         .buildAndRegister()
 
-mods.gregtech.circuit_assembler.recipeBuilder()
+CIRCUIT_ASSEMBLER.recipeBuilder()
         .inputs(ore('circuitUhv'))
         .inputs(ore('wireFineSilver') * 4)
         .inputs(metaitem('plate.advanced_random_access_memory') * 4)
         .inputs(metaitem('storage.segment') * 1)
         .circuitMeta(2)
-        .outputs(item('extracells:storage.component:9'))
+        .outputs(item('nae2:material:6'))
         .cleanroom(CleanroomType.CLEANROOM)
         .duration(200)
-        .EUt(Globals.voltAmps[9])
+        .EUt(VA[UHV])
         .buildAndRegister()
 
-mods.gregtech.circuit_assembler.recipeBuilder()
+CIRCUIT_ASSEMBLER.recipeBuilder()
         .inputs(ore('circuitUev'))
         .inputs(ore('wireFineSilver') * 4)
         .inputs(metaitem('plate.advanced_random_access_memory') * 1)
         .inputs(metaitem('storage.segment') * 1)
         .circuitMeta(2)
-        .outputs(item('extracells:storage.component:10'))
+        .outputs(item('nae2:material:7'))
         .cleanroom(CleanroomType.CLEANROOM)
         .duration(200)
-        .EUt(Globals.voltAmps[10])
+        .EUt(VA[UEV])
         .buildAndRegister()
 
+CIRCUIT_ASSEMBLER.recipeBuilder()
+        .inputs(ore('circuitUiv'))
+        .inputs(ore('wireFineSilver') * 4)
+        .inputs(metaitem('plate.advanced_random_access_memory') * 1)
+        .inputs(metaitem('storage.segment') * 1)
+        .circuitMeta(2)
+        .outputs(item('nae2:material:8'))
+        .cleanroom(CleanroomType.CLEANROOM)
+        .duration(200)
+        .EUt(VA[UIV])
+        .buildAndRegister()
 
 //Spatial cells
-mods.gregtech.circuit_assembler.recipeBuilder()
+CIRCUIT_ASSEMBLER.recipeBuilder()
         .inputs(ore('circuitIv'))
         .inputs(ore('wireFineSilver') * 4)
         .inputs(metaitem('plate.random_access_memory') * 1)
@@ -817,10 +826,10 @@ mods.gregtech.circuit_assembler.recipeBuilder()
         .outputs(item('appliedenergistics2:material:32'))
         .cleanroom(CleanroomType.CLEANROOM)
         .duration(200)
-        .EUt(7680)
+        .EUt(VA[IV])
         .buildAndRegister()
 
-mods.gregtech.circuit_assembler.recipeBuilder()
+CIRCUIT_ASSEMBLER.recipeBuilder()
         .inputs(ore('circuitLuv'))
         .inputs(ore('wireFineSilver') * 4)
         .inputs(metaitem('plate.random_access_memory') * 4)
@@ -829,10 +838,10 @@ mods.gregtech.circuit_assembler.recipeBuilder()
         .outputs(item('appliedenergistics2:material:33'))
         .cleanroom(CleanroomType.CLEANROOM)
         .duration(200)
-        .EUt(30720)
+        .EUt(VA[LuV])
         .buildAndRegister()
 
-mods.gregtech.circuit_assembler.recipeBuilder()
+CIRCUIT_ASSEMBLER.recipeBuilder()
         .inputs(ore('circuitZpm'))
         .inputs(ore('wireFineSilver') * 4)
         .inputs(metaitem('plate.random_access_memory') * 16)
@@ -841,7 +850,7 @@ mods.gregtech.circuit_assembler.recipeBuilder()
         .outputs(item('appliedenergistics2:material:34'))
         .cleanroom(CleanroomType.CLEANROOM)
         .duration(200)
-        .EUt(122880)
+        .EUt(VA[ZPM])
         .buildAndRegister()
 
 def circuits_list = [
@@ -856,7 +865,7 @@ int i = 0
 solder = fluid('soldering_alloy') * 72
 
 for (circuit in circuits_list) {
-        mods.gregtech.assembler.recipeBuilder()
+        ASSEMBLER.recipeBuilder()
                 .inputs(ore(circuit) * 4)
                 .inputs(ore('plateTitanium') * 8)
                 .inputs(item('appliedenergistics2:part:16') * 16)
@@ -870,7 +879,7 @@ for (circuit in circuits_list) {
         i++
 }
 
-mods.gregtech.assembler.recipeBuilder()
+ASSEMBLER.recipeBuilder()
         .inputs(ore('circuitEv'))
         .inputs(ore('wireFineSilver') * 2)
         .inputs(item('appliedenergistics2:crafting_unit'))
@@ -878,10 +887,10 @@ mods.gregtech.assembler.recipeBuilder()
         .outputs(item('appliedenergistics2:crafting_accelerator'))
         .cleanroom(CleanroomType.CLEANROOM)
         .duration(80)
-        .EUt(1920)
+        .EUt(VA[EV])
         .buildAndRegister()
 
-mods.gregtech.assembler.recipeBuilder()
+ASSEMBLER.recipeBuilder()
         .inputs(item('appliedenergistics2:material:35'))
         .inputs(ore('wireFineSilver') * 2)
         .inputs(item('appliedenergistics2:crafting_unit'))
@@ -889,10 +898,10 @@ mods.gregtech.assembler.recipeBuilder()
         .outputs(item('appliedenergistics2:crafting_storage_1k'))
         .cleanroom(CleanroomType.CLEANROOM)
         .duration(80)
-        .EUt(1920)
+        .EUt(VA[EV])
         .buildAndRegister()
 
-mods.gregtech.assembler.recipeBuilder()
+ASSEMBLER.recipeBuilder()
         .inputs(item('appliedenergistics2:material:36'))
         .inputs(ore('wireFineSilver') * 2)
         .inputs(item('appliedenergistics2:crafting_unit'))
@@ -900,10 +909,10 @@ mods.gregtech.assembler.recipeBuilder()
         .outputs(item('appliedenergistics2:crafting_storage_4k'))
         .cleanroom(CleanroomType.CLEANROOM)
         .duration(80)
-        .EUt(1920)
+        .EUt(VA[EV])
         .buildAndRegister()
 
-mods.gregtech.assembler.recipeBuilder()
+ASSEMBLER.recipeBuilder()
         .inputs(item('appliedenergistics2:material:37'))
         .inputs(ore('wireFineSilver') * 2)
         .inputs(item('appliedenergistics2:crafting_unit'))
@@ -911,10 +920,10 @@ mods.gregtech.assembler.recipeBuilder()
         .outputs(item('appliedenergistics2:crafting_storage_16k'))
         .cleanroom(CleanroomType.CLEANROOM)
         .duration(80)
-        .EUt(1920)
+        .EUt(VA[EV])
         .buildAndRegister()
 
-mods.gregtech.assembler.recipeBuilder()
+ASSEMBLER.recipeBuilder()
         .inputs(item('appliedenergistics2:material:38'))
         .inputs(ore('wireFineSilver') * 2)
         .inputs(item('appliedenergistics2:crafting_unit'))
@@ -922,109 +931,110 @@ mods.gregtech.assembler.recipeBuilder()
         .outputs(item('appliedenergistics2:crafting_storage_64k'))
         .cleanroom(CleanroomType.CLEANROOM)
         .duration(80)
-        .EUt(1920)
+        .EUt(VA[EV])
         .buildAndRegister()
 
-mods.gregtech.assembler.recipeBuilder()
-        .inputs(item('extracells:storage.component', 0))
+ASSEMBLER.recipeBuilder()
+        .inputs(item('nae2:material', 1))
         .inputs(ore('wireFineSilver') * 2)
         .inputs(item('appliedenergistics2:crafting_unit'))
         .fluidInputs(solder)
-        .outputs(item('extracpus:crafting_storage_256k'))
+        .outputs(item('nae2:storage_crafting_256k'))
         .cleanroom(CleanroomType.CLEANROOM)
         .duration(80)
-        .EUt(1920)
+        .EUt(VA[EV])
         .buildAndRegister()
 
-mods.gregtech.assembler.recipeBuilder()
-        .inputs(item('extracells:storage.component', 1))
+ASSEMBLER.recipeBuilder()
+        .inputs(item('nae2:material', 2))
         .inputs(ore('wireFineSilver') * 2)
         .inputs(item('appliedenergistics2:crafting_unit'))
         .fluidInputs(solder)
-        .outputs(item('extracpus:crafting_storage_1024k'))
+        .outputs(item('nae2:storage_crafting_1024k'))
         .cleanroom(CleanroomType.CLEANROOM)
         .duration(80)
-        .EUt(1920)
+        .EUt(VA[EV])
         .buildAndRegister()
 
-mods.gregtech.assembler.recipeBuilder()
-        .inputs(item('extracells:storage.component', 2))
+ASSEMBLER.recipeBuilder()
+        .inputs(item('nae2:material', 3))
         .inputs(ore('wireFineSilver') * 2)
         .inputs(item('appliedenergistics2:crafting_unit'))
         .fluidInputs(solder)
-        .outputs(item('extracpus:crafting_storage_4096k'))
+        .outputs(item('nae2:storage_crafting_4096k'))
         .cleanroom(CleanroomType.CLEANROOM)
         .duration(80)
-        .EUt(1920)
+        .EUt(VA[EV])
         .buildAndRegister()
 
-mods.gregtech.assembler.recipeBuilder()
-        .inputs(item('extracells:storage.component', 3))
+ASSEMBLER.recipeBuilder()
+        .inputs(item('nae2:material', 4))
         .inputs(ore('wireFineSilver') * 2)
         .inputs(item('appliedenergistics2:crafting_unit'))
         .fluidInputs(solder)
-        .outputs(item('extracpus:crafting_storage_16384k'))
+        .outputs(item('nae2:storage_crafting_16384k'))
         .cleanroom(CleanroomType.CLEANROOM)
         .duration(80)
-        .EUt(1920)
+        .EUt(VA[EV])
         .buildAndRegister()
 
-mods.gregtech.circuit_assembler.recipeBuilder()
+CIRCUIT_ASSEMBLER.recipeBuilder()
         .inputs(metaitem('circuit_board.plastic'))
         .inputs(ore('circuitHv'))
         .inputs(ore('wireFineElectrum') * 4)
         .fluidInputs(solder)
         .outputs(item('appliedenergistics2:material:25'))
         .duration(80)
-        .EUt(1920)
+        .EUt(VA[EV])
         .buildAndRegister()
 
-mods.gregtech.circuit_assembler.recipeBuilder()
+CIRCUIT_ASSEMBLER.recipeBuilder()
         .inputs(metaitem('circuit_board.advanced'))
         .inputs(ore('circuitEv'))
         .inputs(ore('wireFinePlatinum') * 4)
         .fluidInputs(solder)
         .outputs(item('appliedenergistics2:material:28'))
+        .circuitMeta(2)
         .duration(80)
-        .EUt(1920)
+        .EUt(VA[EV])
         .buildAndRegister()
 
 for (int n = 20; n < 36; n++) {
-        mods.gregtech.chemical_bath.recipeBuilder()
+        CHEMICAL_BATH.recipeBuilder()
                 .inputs(item('appliedenergistics2:part', n))
                 .outputs(item('appliedenergistics2:part', 36))
                 .fluidInputs(fluid('water') * 100)
                 .duration(20)
-                .EUt(Globals.voltAmps[0])
+                .EUt(VA[ULV])
                 .buildAndRegister()
 }
 
 for (int n = 40; n < 56; n++) {
-        mods.gregtech.chemical_bath.recipeBuilder()
+        CHEMICAL_BATH.recipeBuilder()
                 .inputs(item('appliedenergistics2:part', n))
                 .outputs(item('appliedenergistics2:part', 56))
                 .fluidInputs(fluid('water') * 100)
                 .duration(20)
-                .EUt(Globals.voltAmps[0])
+                .EUt(VA[ULV])
                 .buildAndRegister()
 }
 
 for (int n = 60; n < 76; n++) {
-        mods.gregtech.chemical_bath.recipeBuilder()
+        CHEMICAL_BATH.recipeBuilder()
                 .inputs(item('appliedenergistics2:part', n))
                 .outputs(item('appliedenergistics2:part', 76))
                 .fluidInputs(fluid('water') * 100)
                 .duration(20)
-                .EUt(Globals.voltAmps[0])
+                .EUt(VA[ULV])
                 .buildAndRegister()
 }
 
 for (int n = 500; n < 516; n++) {
-        mods.gregtech.chemical_bath.recipeBuilder()
+        CHEMICAL_BATH.recipeBuilder()
                 .inputs(item('appliedenergistics2:part', n))
                 .outputs(item('appliedenergistics2:part', 516))
                 .fluidInputs(fluid('water') * 100)
                 .duration(20)
-                .EUt(Globals.voltAmps[0])
+                .EUt(VA[ULV])
                 .buildAndRegister()
 }
